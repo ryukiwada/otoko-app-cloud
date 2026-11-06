@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="ja"><head><meta charset="utf-8"/><meta content="width=device-width,initial-scale=1" name="viewport"/><meta content="#101827" name="theme-color"/><title>漢アプリ | Cloud Ver.2.0 β</title><style>
+<html lang="ja"><head><meta charset="utf-8"/><meta content="width=device-width,initial-scale=1" name="viewport"/><meta content="#101827" name="theme-color"/><title>漢アプリ | Cloud Ver.2.0.2 β</title><style>
 :root{font-family:system-ui,-apple-system,'Segoe UI',sans-serif;color-scheme:dark;background:#0b1220;color:#e9edf5}*{box-sizing:border-box}body{margin:0}button,input,textarea,select{font:inherit}button{cursor:pointer}button:disabled{opacity:.4;cursor:not-allowed}a{color:#94c5ff}header{position:sticky;top:0;background:#101827ee;backdrop-filter:blur(12px);border-bottom:1px solid #273246;z-index:3}.wrap{max-width:1100px;margin:auto;padding:0 20px}.head{display:flex;align-items:center;justify-content:space-between;min-height:76px;gap:12px}.logo{font-size:20px;font-weight:800;letter-spacing:1px}.sub{font-size:12px;color:#92a1b8}.btn{border:1px solid #37465e;background:#202e44;color:white;padding:10px 15px;border-radius:11px}.primary{background:#657df4;border-color:#657df4;font-weight:700}.danger{background:#4b2531;border-color:#7b3c4e}.btn:hover{filter:brightness(1.12)}main{padding-top:28px!important;padding-bottom:65px!important}h1{font-size:27px;margin:0 0 8px}h2{font-size:19px}p.muted,.muted{color:#98a6bc}.topline{display:flex;justify-content:space-between;align-items:center;gap:14px;flex-wrap:wrap}.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin:22px 0}.stat{background:#141f30;border:1px solid #28374d;border-radius:16px;padding:18px}.stat strong{font-size:28px;display:block}.stat span{font-size:13px;color:#93a1b8}.toolbar{display:flex;gap:10px;flex-wrap:wrap;margin:23px 0}.field{background:#151f30;border:1px solid #344257;color:#f2f4fc;border-radius:10px;padding:12px;min-width:0}.toolbar #search{flex:2;min-width:200px}.toolbar select{flex:1;min-width:150px}.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:18px}.item{border:1px solid #2c3b50;background:#151f30;border-radius:15px;overflow:hidden;cursor:pointer;transition:transform .15s}.item:hover{transform:translateY(-3px);border-color:#788bea}.cover{aspect-ratio:3/4;background:#202c3f;display:flex;align-items:center;justify-content:center;overflow:hidden;color:#758ba8;text-align:center}.cover img{height:100%;width:100%;object-fit:cover}.placeholder{font-size:42px}.info{padding:13px}.title{font-weight:700;overflow:hidden;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;min-height:42px}.meta{color:#a8b5c7;font-size:12px;margin-top:7px;overflow:hidden;white-space:nowrap;text-overflow:ellipsis}.tags{display:flex;gap:5px;flex-wrap:wrap;margin-top:9px}.tag{font-size:11px;border-radius:20px;padding:4px 8px;background:#293852;color:#c3d2fb}.rating{color:#ffcf70}.empty{padding:55px 15px;text-align:center;color:#9aabc4;background:#151f30;border:1px dashed #344257;border-radius:18px}dialog{border:1px solid #3c4b61;background:#131d2d;color:#f0f3fa;border-radius:20px;width:min(650px,calc(100% - 20px));max-height:92vh;padding:0}dialog::backdrop{background:#020611cf}.modalhead{position:sticky;top:0;background:#182439;padding:18px 22px;display:flex;align-items:center;justify-content:space-between;z-index:2}.modalbody{padding:22px;overflow:auto}.x{border:0;background:transparent;color:#b5c2da;font-size:28px}.formgrid{display:grid;grid-template-columns:1fr 1fr;gap:14px}.full{grid-column:1/-1}label{display:block;color:#c6d3e8;font-size:13px;font-weight:600;margin-bottom:6px}input,textarea,select{width:100%}textarea{min-height:75px;resize:vertical}.hint{color:#8e9eb4;font-size:12px;margin-top:6px}.preview{height:180px;width:140px;background:#25344b;border-radius:10px;display:grid;place-items:center;overflow:hidden;margin:10px 0}.preview img{width:100%;height:100%;object-fit:cover}.actions{display:flex;gap:10px;justify-content:flex-end;flex-wrap:wrap;margin-top:24px}.detail{display:grid;grid-template-columns:180px 1fr;gap:22px}.detail .cover{border-radius:12px}.detail p{margin:8px 0}.detail-row{border-bottom:1px solid #2b3b51;padding:9px 0;overflow-wrap:anywhere}.detail-row b{display:block;font-size:12px;color:#93a8c1;margin-bottom:3px}.star{color:#ffc967}.notice{padding:12px 16px;background:#1a2a43;border:1px solid #345070;border-radius:12px;font-size:13px;margin:15px 0;color:#bad0ed}#toast{position:fixed;bottom:25px;left:50%;transform:translateX(-50%);background:#263d57;padding:12px 20px;border-radius:12px;display:none;z-index:9}#io{display:none}.footer{margin-top:36px;font-size:12px;color:#8b9bb3}@media(max-width:640px){.wrap{padding:0 14px}.head{min-height:65px}.logo{font-size:17px}.stats{gap:7px}.stat{padding:11px}.stat strong{font-size:23px}.grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}.detail{grid-template-columns:1fr}.detail .cover{max-width:200px}.formgrid{grid-template-columns:1fr}.modalbody{padding:16px}.toolbar select{min-width:115px}}
 
 /* Ver.1.1: theme, responsive layout, theme selection */
@@ -203,7 +203,7 @@ html[data-theme="pink"] #cloudGate{--cloud-bg:#fff0f6}
 .cloud-auth .small-note{font-size:12px;color:#aec0d9;line-height:1.65}
 </style></head><body>
 <div id="cloudGate" aria-live="polite"><section class="cloud-auth">
- <h1>☁ 漢アプリ Cloud</h1><p class="small-note">Ver.2.0 β · ローカル版とは別のデータです</p>
+ <h1>☁ 漢アプリ Cloud</h1><p class="small-note">Ver.2.0.2 β · ローカル版とは別のデータです</p>
  <p id="authNotice" class="cloud-status">クラウドへ接続しています…</p>
  <form id="cloudAuthForm" hidden>
  <label for="cloudEmail">メールアドレス</label><input class="field" id="cloudEmail" type="email" autocomplete="email" required>
@@ -215,7 +215,7 @@ html[data-theme="pink"] #cloudGate{--cloud-bg:#fff0f6}
  <p class="small-note">メール認証後、このアプリに戻ってログインしてください。作品情報は各ユーザー専用で保存します。</p>
 </section></div>
 <div id="cloudBusy" class="cloud-busy" hidden>クラウドへ保存しています…</div>
-<header><div class="wrap head"><div><div class="logo">◈ 漢アプリ <small class="version">v2.0 β</small></div><div class="sub">自分だけの作品ライブラリ</div></div><button class="btn primary" id="add">＋ 作品登録</button></div></header><main class="wrap"><div class="cloud-account"><span class="muted" id="cloudUser"></span><button class="btn" type="button" id="cloudReload">↻ 同期</button><button class="btn" type="button" id="cloudLogout">ログアウト</button></div>
+<header><div class="wrap head"><div><div class="logo">◈ 漢アプリ <small class="version">v2.0.2 β</small></div><div class="sub">自分だけの作品ライブラリ</div></div><button class="btn primary" id="add">＋ 作品登録</button></div></header><main class="wrap"><div class="cloud-account"><span class="muted" id="cloudUser"></span><button class="btn" type="button" id="cloudReload">↻ 同期</button><button class="btn" type="button" id="cloudLogout">ログアウト</button></div>
 
 
 <section class="app-page active" data-page="list" id="tab-list"><div class="topline"><div><h1>マイライブラリ</h1><div class="muted">お気に入りの作品を、いつでも見つけられる。</div></div></div><section class="stats"><div class="stat"><strong id="total">0</strong><span>登録作品</span></div><div class="stat"><strong id="favorites">0</strong><span>お気に入り</span></div><div class="stat"><strong id="actresses">0</strong><span>登録女優</span></div></section><div class="toolbar"><input class="field" id="search" placeholder="🔎  品番・タイトル・女優・ジャンルで検索"/><select class="field" id="filter"><option value="all">すべての作品</option><option value="fav">お気に入りのみ</option><option value="high">高評価（4以上）</option></select><select class="field" id="sort"><option value="updated">最近登録・更新した順</option><option value="created">登録日が新しい順</option><option value="viewed">最終視聴が新しい順（手動含む）</option><option value="rating">評価が高い順</option><option value="plays">視聴回数が多い順</option><option value="lastPlay">視聴リンクを開いた順</option><option value="title">タイトル順</option></select></div><section class="advanced" id="advanced">
@@ -241,6 +241,11 @@ html[data-theme="pink"] #cloudGate{--cloud-bg:#fff0f6}
 const CLOUD_URL='https://lakduhnnshqowofuzexb.supabase.co';
 const CLOUD_KEY='sb_publishable_l9B5hOEzPrty1DO78FOjPg_c8QLoJz5';
 const CLOUD_BUCKET='work-images';
+// v2.0.2: Download private images using the authenticated client, not browser-dependent signed URLs.
+const imageBlobCache=new Map();
+function clearImageBlobCache(){for(const url of imageBlobCache.values())URL.revokeObjectURL(url);imageBlobCache.clear()}
+function invalidateImageBlob(path){const key=String(path||'');if(imageBlobCache.has(key)){URL.revokeObjectURL(imageBlobCache.get(key));imageBlobCache.delete(key)}}
+
 let client=null,currentUser=null,cloudPreferences={},savePreferencesQueue=Promise.resolve();
 function busy(message){const n=$('cloudBusy');n.textContent=message||'通信中…';n.hidden=false}
 function unbusy(){ $('cloudBusy').hidden=true }
@@ -255,6 +260,7 @@ async function uploadImage(work){
   if(blob.size>2*1024*1024)throw Error('画像が2MBを超えています。小さい画像を選んでください');
   const path=currentUser.id+'/'+encodeURIComponent(String(work.id))+'.jpg';
   checkResult(await client.storage.from(CLOUD_BUCKET).upload(path,blob,{upsert:true,contentType:'image/jpeg',cacheControl:'3600'}));
+  invalidateImageBlob(path);
   work.imagePath=path;
   delete work.image;
  }else if(typeof work.image==='string'&&work.image.startsWith('https://')){
@@ -278,13 +284,34 @@ async function removeCloudWork(id){
  if(current?.imagePath)await client.storage.from(CLOUD_BUCKET).remove([current.imagePath]);
 }
 async function getWorkData(){
- requireLogin();const result=await client.from('works').select('legacy_id,data').eq('user_id',currentUser.id).order('created_at',{ascending:false}).limit(2000);
+ requireLogin();
+ const result=await client.from('works').select('legacy_id,data').eq('user_id',currentUser.id).order('created_at',{ascending:false}).limit(2000);
  const rows=checkResult(result)||[];
- return Promise.all(rows.map(async row=>{
-  const w={...row.data,id:row.data?.id||row.legacy_id};
-  if(w.imagePath){const signed=await client.storage.from(CLOUD_BUCKET).createSignedUrl(w.imagePath,3600);w.image=signed.data?.signedUrl||null}
-  return w;
+ const items=rows.map(row=>({...row.data,id:row.data?.id||row.legacy_id}));
+ const targets=items.filter(w=>w.imagePath);
+ const errors=[];
+ // Keep downloads at a modest concurrency to avoid overwhelming mobile devices.
+ let cursor=0;
+ await Promise.all(Array.from({length:Math.min(4,targets.length)},async()=>{
+  while(cursor<targets.length){
+   const w=targets[cursor++],path=String(w.imagePath);
+   if(imageBlobCache.has(path)){w.image=imageBlobCache.get(path);continue}
+   const {data,error}=await client.storage.from(CLOUD_BUCKET).download(path);
+   if(error||!data){
+    errors.push((w.title||w.distribution||'作品')+': '+(error?.message||'画像を取得できませんでした'));
+    w.image=null;
+    continue;
+   }
+   const url=URL.createObjectURL(data);
+   imageBlobCache.set(path,url);
+   w.image=url;
+  }
  }));
+ if(errors.length){
+  console.warn('画像の取得に失敗:',errors);
+  notify('画像 '+errors.length+' 件の読込失敗。例: '+errors[0].slice(0,90));
+ }
+ return items;
 }
 async function refresh(){works=await getWorkData();render();if(currentTab==='history')drawGlobalHistory()}
 function pic(w){return w.image?`<img src="${esc(w.image)}" alt="${esc(w.title||'作品パッケージ')}">`:'<span class="placeholder">▧</span>'}function render(){
@@ -537,6 +564,7 @@ function saveCloudPreferences(){
  }).catch(e=>notify('設定の同期に失敗しました: '+e.message));
 }
 async function startSession(user){
+ if(currentUser?.id&&currentUser.id!==user.id)clearImageBlobCache();
  currentUser=user;
  $('cloudUser').textContent=user.email||'ログイン中';
  busy('クラウドのデータを読み込んでいます…');
@@ -562,9 +590,9 @@ async function bootCloud(){
  $('cloudSignUp').onclick=async()=>{if(!form.reportValidity())return;busy('アカウントを作成しています…');try{const {data,error}=await client.auth.signUp({email:$('cloudEmail').value.trim(),password:$('cloudPassword').value,options:{emailRedirectTo:location.origin+location.pathname}});if(error)throw error;authMessage(data.session?'登録しました。読み込み中…':'登録確認メールを送信しました。メール内のリンクを開いてからログインしてください。')}catch(e){authMessage(e.message,true)}finally{unbusy()}};
  $('cloudUpdatePassword').onclick=async()=>{const password=$('cloudPassword').value;if(password.length<12){authMessage('12文字以上のパスワードを入力してください',true);return}try{busy('パスワードを更新しています…');const {error}=await client.auth.updateUser({password});if(error)throw error;$('cloudUpdatePassword').hidden=true;authMessage('パスワードを更新しました。ログインできます。')}catch(e){authMessage(e.message,true)}finally{unbusy()}};
  $('cloudReset').onclick=async()=>{const email=$('cloudEmail').value.trim();if(!email){authMessage('先にメールアドレスを入力してください',true);return}busy('メールを送信しています…');try{const {error}=await client.auth.resetPasswordForEmail(email,{redirectTo:location.origin+location.pathname});if(error)throw error;authMessage('パスワード再設定メールを送信しました。')}catch(e){authMessage(e.message,true)}finally{unbusy()}};
- $('cloudLogout').onclick=async()=>{try{checkResult(await client.auth.signOut());currentUser=null;works=[];cloudPreferences={};favoriteActresses=[];savedSearches=[];render();showAuth()}catch(e){notify(e.message)}};
+ $('cloudLogout').onclick=async()=>{try{checkResult(await client.auth.signOut());clearImageBlobCache();currentUser=null;works=[];cloudPreferences={};favoriteActresses=[];savedSearches=[];render();showAuth()}catch(e){notify(e.message)}};
  $('cloudReload').onclick=async()=>{try{busy('同期しています…');await startSession(currentUser);notify('同期しました')}catch(e){notify(e.message)}finally{unbusy()}};
- client.auth.onAuthStateChange((ev,session)=>{if(ev==='SIGNED_OUT'){currentUser=null;works=[];cloudPreferences={};render();showAuth()}else if((ev==='SIGNED_IN'||ev==='INITIAL_SESSION')&&session?.user&&session.user.id!==currentUser?.id){setTimeout(()=>startSession(session.user),0)}else if(ev==='PASSWORD_RECOVERY'){showAuth();$('cloudUpdatePassword').hidden=false;authMessage('新しいパスワード（12文字以上）を入力して、「新しいパスワードを設定」を押してください。') }});
+ client.auth.onAuthStateChange((ev,session)=>{if(ev==='SIGNED_OUT'){clearImageBlobCache();currentUser=null;works=[];cloudPreferences={};render();showAuth()}else if((ev==='SIGNED_IN'||ev==='INITIAL_SESSION')&&session?.user&&session.user.id!==currentUser?.id){setTimeout(()=>startSession(session.user),0)}else if(ev==='PASSWORD_RECOVERY'){showAuth();$('cloudUpdatePassword').hidden=false;authMessage('新しいパスワード（12文字以上）を入力して、「新しいパスワードを設定」を押してください。') }});
  const {data,error}=await client.auth.getSession();if(error){showAuth();authMessage(error.message,true)}else if(data.session?.user)await startSession(data.session.user);else showAuth();
 }
 bootCloud().catch(e=>authMessage(e.message,true));
