@@ -1,0 +1,572 @@
+<!DOCTYPE html>
+<html lang="ja"><head><meta charset="utf-8"/><meta content="width=device-width,initial-scale=1" name="viewport"/><meta content="#101827" name="theme-color"/><title>漢アプリ | Cloud Ver.2.0 β</title><style>
+:root{font-family:system-ui,-apple-system,'Segoe UI',sans-serif;color-scheme:dark;background:#0b1220;color:#e9edf5}*{box-sizing:border-box}body{margin:0}button,input,textarea,select{font:inherit}button{cursor:pointer}button:disabled{opacity:.4;cursor:not-allowed}a{color:#94c5ff}header{position:sticky;top:0;background:#101827ee;backdrop-filter:blur(12px);border-bottom:1px solid #273246;z-index:3}.wrap{max-width:1100px;margin:auto;padding:0 20px}.head{display:flex;align-items:center;justify-content:space-between;min-height:76px;gap:12px}.logo{font-size:20px;font-weight:800;letter-spacing:1px}.sub{font-size:12px;color:#92a1b8}.btn{border:1px solid #37465e;background:#202e44;color:white;padding:10px 15px;border-radius:11px}.primary{background:#657df4;border-color:#657df4;font-weight:700}.danger{background:#4b2531;border-color:#7b3c4e}.btn:hover{filter:brightness(1.12)}main{padding-top:28px!important;padding-bottom:65px!important}h1{font-size:27px;margin:0 0 8px}h2{font-size:19px}p.muted,.muted{color:#98a6bc}.topline{display:flex;justify-content:space-between;align-items:center;gap:14px;flex-wrap:wrap}.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin:22px 0}.stat{background:#141f30;border:1px solid #28374d;border-radius:16px;padding:18px}.stat strong{font-size:28px;display:block}.stat span{font-size:13px;color:#93a1b8}.toolbar{display:flex;gap:10px;flex-wrap:wrap;margin:23px 0}.field{background:#151f30;border:1px solid #344257;color:#f2f4fc;border-radius:10px;padding:12px;min-width:0}.toolbar #search{flex:2;min-width:200px}.toolbar select{flex:1;min-width:150px}.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:18px}.item{border:1px solid #2c3b50;background:#151f30;border-radius:15px;overflow:hidden;cursor:pointer;transition:transform .15s}.item:hover{transform:translateY(-3px);border-color:#788bea}.cover{aspect-ratio:3/4;background:#202c3f;display:flex;align-items:center;justify-content:center;overflow:hidden;color:#758ba8;text-align:center}.cover img{height:100%;width:100%;object-fit:cover}.placeholder{font-size:42px}.info{padding:13px}.title{font-weight:700;overflow:hidden;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;min-height:42px}.meta{color:#a8b5c7;font-size:12px;margin-top:7px;overflow:hidden;white-space:nowrap;text-overflow:ellipsis}.tags{display:flex;gap:5px;flex-wrap:wrap;margin-top:9px}.tag{font-size:11px;border-radius:20px;padding:4px 8px;background:#293852;color:#c3d2fb}.rating{color:#ffcf70}.empty{padding:55px 15px;text-align:center;color:#9aabc4;background:#151f30;border:1px dashed #344257;border-radius:18px}dialog{border:1px solid #3c4b61;background:#131d2d;color:#f0f3fa;border-radius:20px;width:min(650px,calc(100% - 20px));max-height:92vh;padding:0}dialog::backdrop{background:#020611cf}.modalhead{position:sticky;top:0;background:#182439;padding:18px 22px;display:flex;align-items:center;justify-content:space-between;z-index:2}.modalbody{padding:22px;overflow:auto}.x{border:0;background:transparent;color:#b5c2da;font-size:28px}.formgrid{display:grid;grid-template-columns:1fr 1fr;gap:14px}.full{grid-column:1/-1}label{display:block;color:#c6d3e8;font-size:13px;font-weight:600;margin-bottom:6px}input,textarea,select{width:100%}textarea{min-height:75px;resize:vertical}.hint{color:#8e9eb4;font-size:12px;margin-top:6px}.preview{height:180px;width:140px;background:#25344b;border-radius:10px;display:grid;place-items:center;overflow:hidden;margin:10px 0}.preview img{width:100%;height:100%;object-fit:cover}.actions{display:flex;gap:10px;justify-content:flex-end;flex-wrap:wrap;margin-top:24px}.detail{display:grid;grid-template-columns:180px 1fr;gap:22px}.detail .cover{border-radius:12px}.detail p{margin:8px 0}.detail-row{border-bottom:1px solid #2b3b51;padding:9px 0;overflow-wrap:anywhere}.detail-row b{display:block;font-size:12px;color:#93a8c1;margin-bottom:3px}.star{color:#ffc967}.notice{padding:12px 16px;background:#1a2a43;border:1px solid #345070;border-radius:12px;font-size:13px;margin:15px 0;color:#bad0ed}#toast{position:fixed;bottom:25px;left:50%;transform:translateX(-50%);background:#263d57;padding:12px 20px;border-radius:12px;display:none;z-index:9}#io{display:none}.footer{margin-top:36px;font-size:12px;color:#8b9bb3}@media(max-width:640px){.wrap{padding:0 14px}.head{min-height:65px}.logo{font-size:17px}.stats{gap:7px}.stat{padding:11px}.stat strong{font-size:23px}.grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}.detail{grid-template-columns:1fr}.detail .cover{max-width:200px}.formgrid{grid-template-columns:1fr}.modalbody{padding:16px}.toolbar select{min-width:115px}}
+
+/* Ver.1.1: theme, responsive layout, theme selection */
+.version{font-size:10px;background:#33466d;color:#e5eeff;padding:3px 6px;border-radius:7px;vertical-align:middle;letter-spacing:0}
+.topActions{display:flex;gap:8px;flex-wrap:wrap}.listControl{display:flex;justify-content:space-between;align-items:center;margin:-8px 0 12px;gap:8px}.small{padding:7px 11px;font-size:13px}
+.themeChoices{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;margin:18px 0 6px}.themeChoice{border:2px solid #39465b;border-radius:16px;padding:12px;background:#202c40;color:inherit;display:flex;align-items:flex-start;flex-direction:column;gap:8px;text-align:left;cursor:pointer}.themeChoice.selected{border-color:#718afa;box-shadow:0 0 0 2px #718afa33}.themeChoice small{font-size:11px;opacity:.8}.swatch{height:74px;width:100%;border-radius:10px}.darkSwatch{background:linear-gradient(145deg,#0b1220 55%,#647cf4 55%)}.pinkSwatch{background:linear-gradient(145deg,#fff0f6 55%,#eaa2c4 55%)}
+.grid.oneColumn{grid-template-columns:1fr}.grid.oneColumn .item{display:grid;grid-template-columns:min(37%,180px) 1fr}.grid.oneColumn .cover{height:100%;min-height:170px;aspect-ratio:auto}.grid.oneColumn .info{align-self:center}
+@media(max-width:640px){.head{gap:8px}.logo{font-size:18px}.head .primary{font-size:14px;padding:10px 10px;white-space:nowrap}.version{font-size:9px}.topActions{width:100%}.topActions .btn{flex:1}.toolbar{margin-top:18px}.grid{gap:10px}.info{padding:10px}.title{font-size:14px;min-height:36px}.meta{font-size:11px}.cover{aspect-ratio:3/4}.themeChoices{gap:9px}.themeChoice{padding:9px}.themeChoice strong{font-size:13px}}
+/* Soft pink theme. Scoped to <html data-theme=pink> so existing data/UI remain unchanged. */
+html[data-theme="pink"]{color-scheme:light;background:#fff7fa;color:#503846}
+html[data-theme="pink"] body{background:#fff7fa;color:#503846}
+html[data-theme="pink"] header{background:#fff0f6f2;border-bottom-color:#edd2df}
+html[data-theme="pink"] .sub,html[data-theme="pink"] .muted,html[data-theme="pink"] p.muted{color:#896a7b}
+html[data-theme="pink"] .version{background:#f8d4e3;color:#8d4265}
+html[data-theme="pink"] .btn{background:#fbe5ed;border-color:#e8bfd0;color:#70465b}
+html[data-theme="pink"] .btn.primary,html[data-theme="pink"] .primary{background:#d97ea9;border-color:#d97ea9;color:white}
+html[data-theme="pink"] .btn.danger{background:#fae1e3;border-color:#e9b3bb;color:#a12e44}
+html[data-theme="pink"] a{color:#a63f77}
+html[data-theme="pink"] .stat,html[data-theme="pink"] .item,html[data-theme="pink"] .empty{background:#fffdfd;border-color:#efd8e3}
+html[data-theme="pink"] .stat span,html[data-theme="pink"] .meta,html[data-theme="pink"] .footer{color:#8f6d81}
+html[data-theme="pink"] .field{background:#fffdfd;color:#503846;border-color:#e8cad9}
+html[data-theme="pink"] .field::placeholder{color:#ad90a0}
+html[data-theme="pink"] .item:hover{border-color:#cd80a4}
+html[data-theme="pink"] .cover,html[data-theme="pink"] .preview{background:#fbe5ef;color:#b888a2}
+html[data-theme="pink"] .tag{background:#f9dfed;color:#925071}
+html[data-theme="pink"] dialog{background:#fff9fc;color:#503846;border-color:#e4bed1}
+html[data-theme="pink"] dialog::backdrop{background:#4b263d9c}
+html[data-theme="pink"] .modalhead{background:#fce7f0}
+html[data-theme="pink"] label{color:#734b60}
+html[data-theme="pink"] .hint,html[data-theme="pink"] .detail-row b{color:#907181}
+html[data-theme="pink"] .detail-row{border-bottom-color:#eed8e3}
+html[data-theme="pink"] .x{color:#8f607a}
+html[data-theme="pink"] .notice{background:#ffeff5;border-color:#ebccdc;color:#794a61}
+html[data-theme="pink"] #toast{background:#8a4e6e;color:white}
+html[data-theme="pink"] .themeChoice{background:#fff2f7;border-color:#e7c7d5;color:#70465b}
+html[data-theme="pink"] .themeChoice.selected{border-color:#cd689c;box-shadow:0 0 0 2px #f0a4c466}
+html[data-theme="pink"] .rating,html[data-theme="pink"] .star{color:#c68321}
+
+/* Ver.1.2: reusable performer tags & grouped genre picker */
+.soft-note{font-size:12px;font-weight:400;color:#92a1b8}.chip-list{display:flex;gap:7px;flex-wrap:wrap;margin:7px 0}.chip-list:empty{margin:0}.chip{border:1px solid #536a89;border-radius:999px;background:#273955;color:#e5eeff;padding:6px 10px;display:inline-flex;align-items:center;gap:8px;font-size:13px;max-width:100%;overflow-wrap:anywhere}.chip button{border:0;background:transparent;color:inherit;font-size:19px;line-height:1;padding:0 1px}.suggest-wrap{position:relative}.suggest-panel{position:absolute;top:calc(100% + 3px);left:0;right:0;z-index:9;border:1px solid #4b6282;border-radius:12px;background:#19253a;box-shadow:0 12px 32px #0007;max-height:220px;overflow:auto}.suggest-panel[hidden]{display:none}.suggest-item{width:100%;text-align:left;padding:12px 14px;border:0;border-bottom:1px solid #34445e;background:transparent;color:inherit;display:flex;justify-content:space-between;align-items:center;gap:8px}.suggest-item:last-child{border:0}.suggest-item:active{background:#31425e}.suggest-item small{opacity:.7}.quick-heading{font-size:13px;font-weight:700;margin:17px 0 8px}.quick-list{display:flex;gap:6px;flex-wrap:wrap;max-height:126px;overflow-y:auto}.quick-list:empty:after{content:'まだ登録がありません';color:#8e9eb5;font-size:12px}.pick-btn{border:1px solid #40516b;background:#202d42;border-radius:999px;color:inherit;padding:7px 11px;line-height:1.3;font-size:13px}.pick-btn.selected{background:#5d75ec;border-color:#5d75ec;color:white}.genre-categories{display:grid;gap:10px;margin-top:14px}.genre-group{border:1px solid #34445e;border-radius:12px;overflow:hidden}.genre-group summary{cursor:pointer;list-style:none;padding:12px 13px;font-weight:700;background:#1d293d;display:flex;justify-content:space-between;align-items:center;font-size:14px}.genre-group summary::-webkit-details-marker{display:none}.genre-group summary:after{content:'⌄';opacity:.7}.genre-group[open] summary:after{content:'⌃'}.genre-picks{display:flex;gap:7px;flex-wrap:wrap;padding:11px}.genre-count{margin-left:auto;margin-right:12px;font-size:12px;opacity:.7;font-weight:400}.inline-action{color:#9db1ff}.genre-caption{font-size:12px;color:#8e9eb5;margin-top:8px}
+html[data-theme="pink"] .soft-note,html[data-theme="pink"] .genre-caption{color:#987486}
+html[data-theme="pink"] .chip{background:#fbe5ee;border-color:#dca9c1;color:#77415e}
+html[data-theme="pink"] .suggest-panel{background:#fff9fc;border-color:#e6c4d4;box-shadow:0 12px 28px #8f52752b}
+html[data-theme="pink"] .suggest-item{border-color:#f0dce5}
+html[data-theme="pink"] .suggest-item:active{background:#fce6f0}
+html[data-theme="pink"] .pick-btn{background:#fff7fa;border-color:#e9c7d8;color:#83506a}
+html[data-theme="pink"] .pick-btn.selected{background:#d97ea9;color:white;border-color:#d97ea9}
+html[data-theme="pink"] .genre-group{border-color:#ead0de}
+html[data-theme="pink"] .genre-group summary{background:#fcebf3}
+html[data-theme="pink"] .inline-action{color:#ad4e81}
+@media(max-width:640px){.suggest-item{min-height:44px}.pick-btn{min-height:35px}.genre-picks{padding:9px}}
+
+/* Ver.1.3: パッケージの縦横比を保ったまま全体を表示 */
+.cover img,.preview img{object-fit:contain!important;object-position:center;width:100%;height:100%}
+.preview{width:min(100%,360px);height:220px}
+/* 横長の画像でも拡大画面の全体を確認できるようにする */
+.detail .cover{width:100%;max-width:360px;min-height:180px;aspect-ratio:3/4}
+@media(max-width:640px){.detail .cover{max-width:100%;aspect-ratio:4/3}}
+
+/* Ver.1.3: discoverability, filters, zoom, better mobile editor */
+.advanced{border:1px solid #344257;border-radius:16px;background:#141f30;margin:0 0 21px;padding:12px}.advanced-head{display:flex;justify-content:space-between;align-items:center;gap:7px}.advanced-toggle{flex:1;text-align:left;font-weight:700}.advanced-head .small{white-space:nowrap}.advanced #advancedBody{padding:13px 4px 4px}.advanced-row{display:flex;justify-content:space-between;flex-wrap:wrap;align-items:baseline;gap:6px;margin:15px 0 10px}.advanced-row strong{font-size:14px}.advanced-row .hint{margin:0}.advanced input{width:100%;margin-bottom:9px}.filterchips{display:flex;flex-wrap:wrap;gap:7px;max-height:210px;overflow:auto;padding:2px 0 8px}.filter-chip{border:1px solid #425672;border-radius:100px;background:#223148;color:#e7edfa;padding:7px 11px;font-size:12px}.filter-chip.chosen{background:#657df4;border-color:#657df4;color:white;font-weight:700}.match-row{display:flex;align-items:center;flex-wrap:wrap;gap:8px;justify-content:space-between;border-top:1px solid #344257;margin-top:13px;padding-top:14px;font-size:13px}.segmented{display:flex;gap:3px;padding:3px;background:#27364d;border-radius:10px}.segmented button{border:0;background:transparent;color:#d5dded;border-radius:8px;padding:8px 9px;font-size:12px}.segmented button.active{background:#657df4;color:white;font-weight:700}.active-summary{display:flex;align-items:center;gap:6px;flex-wrap:wrap;padding:12px 3px 2px;font-size:12px;color:#aebbd0}.summary-chip{padding:5px 9px;border:1px solid #60769b;background:#273850;color:#edf2fa;border-radius:20px;font-size:12px}.cover img{object-fit:contain!important}.cover:has(img){cursor:zoom-in}.zoomable{cursor:zoom-in}.formIntro{border:1px solid #345070;background:#1a2a43;padding:11px 12px;border-radius:11px;color:#c3d7f2;font-size:12px;margin-bottom:13px}.formJumps{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:18px}.formJumps button{padding:7px 9px;border-radius:30px;border:1px solid #445671;background:#263850;color:#dce5f5;font-size:12px}.formActions{position:sticky;bottom:0;z-index:2;padding:14px 2px calc(8px + env(safe-area-inset-bottom));background:#131d2df2;border-top:1px solid #344257;margin-top:22px}.preview{width:min(100%,290px);height:175px}.preview img{object-fit:contain!important}dialog#imageZoom{width:100vw;max-width:100vw;max-height:100dvh;height:100dvh;border:0;border-radius:0;background:#050913;padding:0;margin:0;color:white}dialog#imageZoom::backdrop{background:#000e}.zoomTop{display:flex;justify-content:space-between;align-items:center;gap:10px;padding:12px 16px;min-height:58px;background:#151e2f;color:#e7edfa}.zoomTop span{font-size:13px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.zoomClose{border:1px solid #465472;border-radius:9px;padding:7px 11px;background:#26354c;color:white;white-space:nowrap}.zoomArea{height:calc(100dvh - 58px);width:100%;display:flex;align-items:center;justify-content:center;padding:12px}.zoomArea img{width:100%;height:100%;object-fit:contain}.detail .cover img{object-fit:contain!important}
+html[data-theme="pink"] .advanced{background:#fffdfd;border-color:#efd8e3}html[data-theme="pink"] .filter-chip{background:#fff0f6;color:#70465b;border-color:#ddb0c9}html[data-theme="pink"] .filter-chip.chosen,html[data-theme="pink"] .segmented button.active{background:#d97ea9;color:#fff;border-color:#d97ea9}html[data-theme="pink"] .segmented{background:#f9deeb}html[data-theme="pink"] .segmented button{color:#70465b}html[data-theme="pink"] .segmented button.active{color:#fff}html[data-theme="pink"] .match-row{border-color:#efd8e3}html[data-theme="pink"] .summary-chip,html[data-theme="pink"] .formJumps button{background:#fbe5ed;color:#70465b;border-color:#e8bfd0}html[data-theme="pink"] .formIntro{background:#fff0f6;color:#794a61;border-color:#ebccdc}html[data-theme="pink"] .formActions{background:#fff9fcf2;border-color:#ebccdc}
+@media(max-width:640px){.advanced{padding:10px}.advanced-head .btn{font-size:12px;padding:9px}.filterchips{max-height:200px}.match-row{align-items:flex-start}.segmented{width:100%}.segmented button{flex:1}.formActions{margin-left:-16px;margin-right:-16px;padding-left:16px;padding-right:16px}.formActions .primary{flex:1}.preview{width:100%;height:190px}}
+.work-links{display:flex;flex-wrap:wrap;gap:10px;margin-top:20px}.work-links .btn{min-height:42px}@media(max-width:640px){.work-links{flex-direction:column}.work-links .btn{width:100%}}
+
+/* Ver.1.4.1.1: pink theme visibility correction for watch statistics */
+html[data-theme="pink"] .watch-summary>div{background:#fff0f6;border-color:#e7c4d5;color:#503846}
+html[data-theme="pink"] .watch-summary small{color:#896a7b;opacity:1}
+html[data-theme="pink"] .watch-summary strong{color:#70465b}
+html[data-theme="pink"] .watch-help{color:#896a7b;opacity:1}
+html[data-theme="pink"] .watch-event{background:#fffdfd;border-color:#e8cad9;color:#503846}
+.watch-summary{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:18px 0 8px}.watch-summary>div{padding:12px;border-radius:12px;background:var(--surface,#202e44);border:1px solid #64748b55}.watch-summary small{display:block;font-size:11px;opacity:.8;margin-bottom:8px}.watch-summary strong{font-size:17px;overflow-wrap:anywhere}.watch-help{font-size:11px;opacity:.8;line-height:1.55}.watch-history{display:grid;gap:7px;max-height:290px;overflow:auto}.watch-event{display:flex;justify-content:space-between;align-items:center;gap:8px;padding:8px 10px;border-radius:10px;border:1px solid #64748b55;font-size:12px}.watch-event .btn{padding:5px 9px}.watch-event span{overflow-wrap:anywhere}@media(max-width:420px){.watch-summary{grid-template-columns:1fr}}
+
+/* Ver.1.5 dashboard, search presets, and both-theme surfaces */
+.v15-panel{margin:22px 0;padding:18px;border:1px solid #2c3b50;background:#151f30;border-radius:18px}.v15-head{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px}.v15-head h2{margin:0 0 13px}.v15-actresses{display:flex;gap:9px;overflow:auto;padding:4px 0 10px;scrollbar-width:thin}.actress-card{display:flex;flex:0 0 auto;align-items:center;gap:3px;background:#202d42;border:1px solid #36465e;border-radius:12px;padding:5px}.actress-heart{border:0;background:none;color:#b3bfd0;font-size:23px;padding:8px}.actress-heart.active{color:#f086af}.actress-select{border:0;background:none;color:inherit;text-align:left;display:flex;flex-direction:column;gap:3px;padding:5px 10px 5px 0}.actress-select small{color:#a0afc6}.v15-metrics{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:9px;margin:7px 0 16px}.v15-metric{border-radius:12px;background:#202d42;padding:14px}.v15-metric strong{display:block;font-size:22px}.v15-metric span{font-size:11px;color:#aab8cd}.v15-rankings{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:18px}.v15-rankings h3{font-size:14px;margin:6px 0 8px}.rank-row{width:100%;display:flex;align-items:center;gap:9px;border:0;border-bottom:1px solid #34445b;color:inherit;background:transparent;text-align:left;padding:11px 4px}.rank-row:hover{background:#243650}.rank-num{color:#a1b5d5;min-width:17px}.rank-name{flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-size:13px}.rank-value{font-size:11px;white-space:nowrap;color:#9fb0c8}.saved-searches{margin-top:14px;padding-top:14px;border-top:1px solid #34445b}.save-row{display:flex;gap:8px}.save-row .field{flex:1}.saved-search-list{display:flex;flex-wrap:wrap;gap:8px;margin:10px 0 0}.saved-search{display:flex;border:1px solid #47607d;border-radius:12px;overflow:hidden;background:#263751}.saved-search button{border:0;background:transparent;color:inherit;padding:8px 11px;font-size:12px}.saved-search-remove{border-left:1px solid #47607d!important}.advanced{scroll-margin-top:90px}#results{scroll-margin-top:90px}.item:focus-visible,.rank-row:focus-visible,.actress-select:focus-visible{outline:2px solid #8494ff;outline-offset:2px}
+html[data-theme="pink"] .v15-panel{background:#fffdfd;border-color:#efd8e3}html[data-theme="pink"] .actress-card,html[data-theme="pink"] .v15-metric{background:#fbeaf1;border-color:#ebc6da}html[data-theme="pink"] .actress-heart{color:#b689a0}html[data-theme="pink"] .actress-heart.active{color:#cf4789}html[data-theme="pink"] .actress-select small,html[data-theme="pink"] .v15-metric span,html[data-theme="pink"] .rank-num,html[data-theme="pink"] .rank-value{color:#936c81}html[data-theme="pink"] .rank-row{border-color:#efd8e3}html[data-theme="pink"] .rank-row:hover{background:#fce7f1}html[data-theme="pink"] .saved-search{background:#fbe8f0;border-color:#e5bfd2}html[data-theme="pink"] .saved-search-remove{border-color:#e5bfd2!important}html[data-theme="pink"] .saved-searches{border-color:#efd8e3}
+@media(max-width:700px){.v15-panel{padding:13px}.v15-rankings{grid-template-columns:1fr;gap:6px}.v15-metric{padding:10px}.v15-metric strong{font-size:19px}.save-row .field{min-width:0}}
+
+/* Ver 1.6: persistent four-page navigation */
+html,body{min-height:100%}main.wrap{padding-bottom:115px!important;padding-top:22px!important}
+.app-page{display:none;min-height:55vh;animation:page-in .16s ease-out}.app-page.active{display:block}
+@keyframes page-in{from{opacity:.7;transform:translateY(5px)}to{opacity:1;transform:none}}
+.bottom-nav{position:fixed;bottom:0;left:0;right:0;z-index:6;display:flex;justify-content:center;gap:8px;background:#121d2cf4;backdrop-filter:blur(15px);border-top:1px solid #34445b;padding:9px 14px max(11px,env(safe-area-inset-bottom));box-shadow:0 -7px 25px #050b1740}
+.bottom-tab{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;flex:1;max-width:190px;border:1px solid transparent;border-radius:13px;background:transparent;color:#9babca;padding:8px 5px 7px;font-size:11px;font-weight:600;min-height:52px;line-height:1.2}
+.bottom-tab .bottom-icon{font-size:23px;line-height:1}.bottom-tab.active{background:#263753;color:#eef1ff;border-color:#465c86}.bottom-tab:focus-visible{outline:2px solid #94b2ff;outline-offset:2px}
+.history-summary{display:flex;gap:10px;flex-wrap:wrap;margin:17px 0}.history-summary .stat{flex:1;min-width:135px}.history-feed{display:grid;gap:11px;margin:18px 0}.history-entry{width:100%;display:flex;align-items:center;text-align:left;gap:14px;background:#151f30;color:inherit;border:1px solid #344257;border-radius:15px;padding:12px}.history-entry:active{opacity:.75}.history-thumb{width:62px;height:66px;background:#202c3f;border-radius:9px;display:grid;place-items:center;flex-shrink:0;overflow:hidden}.history-thumb img{width:100%;height:100%;object-fit:contain}.history-detail{min-width:0;flex:1}.history-detail strong{display:block;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-size:14px}.history-detail span{display:block;color:#9faec5;font-size:12px;margin-top:6px}.settings-panel{background:#151f30;border:1px solid #344257;border-radius:18px;padding:18px;margin:20px 0;display:grid;gap:13px}.settings-panel .topActions{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));width:100%;gap:12px}.settings-panel .btn{min-height:48px}.settings-panel #layoutSwitch{width:100%;text-align:center}.app-page h1{margin:0 0 12px}
+html[data-theme="pink"] .bottom-nav{background:#fff0f6f5;border-top-color:#e9c4d5;box-shadow:0 -7px 25px #ab6c8c22}html[data-theme="pink"] .bottom-tab{color:#927287}html[data-theme="pink"] .bottom-tab.active{background:#f9d8e8;color:#864c69;border-color:#e4abc8}html[data-theme="pink"] .history-entry,html[data-theme="pink"] .settings-panel{background:#fffdfd;border-color:#efd8e3}html[data-theme="pink"] .history-thumb{background:#fbe5ef}html[data-theme="pink"] .history-detail span{color:#8f6d81}
+@media(max-width:640px){.bottom-nav{gap:3px;padding:6px 8px max(7px,env(safe-area-inset-bottom))}.bottom-tab{min-height:54px;font-size:10px}.bottom-tab .bottom-icon{font-size:22px}main.wrap{padding-bottom:105px!important}.settings-panel{padding:13px}.head{min-height:58px}.topline{margin-bottom:8px}.v15-panel{margin:14px 0}}
+
+/* Ver.1.6.1: prevent long titles from widening the viewport.
+   Use a constrained grid so counts remain visible, and allow natural wrapping. */
+#tab-rank, #tab-history, #tab-rank .v15-panel,
+#tab-rank .v15-rankings, #tab-rank .v15-rankings > div,
+#tab-history .history-feed {min-width:0;max-width:100%;box-sizing:border-box;}
+#tab-rank .v15-rankings {width:100%;min-width:0;}
+#tab-rank .rank-row {
+  display:grid;
+  grid-template-columns:24px minmax(0,1fr) auto;
+  align-items:start;
+  gap:10px;
+  min-width:0;
+  max-width:100%;
+  box-sizing:border-box;
+}
+#tab-rank .rank-num {min-width:0;padding-top:2px;}
+#tab-rank .rank-name {
+  min-width:0;
+  white-space:normal;
+  overflow:visible;
+  text-overflow:clip;
+  overflow-wrap:anywhere;
+  word-break:break-word;
+  line-height:1.5;
+  font-size:13px;
+}
+#tab-rank .rank-value {
+  min-width:0;
+  white-space:nowrap;
+  text-align:right;
+  align-self:center;
+  font-variant-numeric:tabular-nums;
+}
+#tab-history .history-entry {
+  display:grid;
+  grid-template-columns:62px minmax(0,1fr) 12px;
+  max-width:100%;
+  min-width:0;
+  box-sizing:border-box;
+  align-items:center;
+  gap:12px;
+}
+#tab-history .history-detail {min-width:0;overflow:hidden;}
+#tab-history .history-detail strong {
+  white-space:normal;
+  overflow:visible;
+  text-overflow:clip;
+  overflow-wrap:anywhere;
+  word-break:break-word;
+  line-height:1.5;
+}
+#tab-history .history-detail span {overflow-wrap:anywhere;}
+@media(max-width:640px){
+  #tab-rank .v15-rankings {grid-template-columns:minmax(0,1fr);}
+  #tab-rank .rank-row {grid-template-columns:20px minmax(0,1fr) auto;gap:7px;}
+  #tab-history .history-entry {grid-template-columns:48px minmax(0,1fr) 10px;gap:9px;padding:10px;}
+  #tab-history .history-thumb {width:48px;height:56px;}
+}
+
+/* Ver.1.7: dedicated favorites, image gallery, responsive monthly analysis */
+.rank-switch{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:7px;margin:17px 0 20px}
+.rank-switch-btn{min-width:0;min-height:45px;padding:9px 5px;border:1px solid #445574;border-radius:12px;background:#1c2a40;color:#c7d4e8;font-size:13px;font-weight:650;overflow-wrap:anywhere}
+.rank-switch-btn.active{background:#657df4;color:white;border-color:#657df4}
+.rank-view[hidden]{display:none!important}
+.favorite-actress-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(225px,1fr));gap:12px;margin-top:12px}
+.favorite-person{min-width:0;border-radius:14px;background:#202d42;border:1px solid #34465f;padding:13px;display:grid;gap:10px}
+.favorite-person-name{font-size:17px;font-weight:700;overflow-wrap:anywhere}
+.favorite-person-meta{color:#b6c6dd;font-size:12px}
+.favorite-person-actions{display:flex;gap:8px;flex-wrap:wrap}
+.favorite-person-actions .btn{flex:1;font-size:12px;padding:9px}
+.monthly-metrics{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:9px;margin:18px 0}
+.monthly-metric{padding:13px;border-radius:13px;background:#202d42;min-width:0}
+.monthly-metric strong{display:block;font-size:23px}.monthly-metric span{font-size:11px;color:#afbed4}
+.month-chart{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:8px;align-items:end;margin:24px 0 16px;padding:16px 10px 10px;background:#101a2b;border:1px solid #344257;border-radius:14px}
+.month-col{min-width:0;display:flex;flex-direction:column;align-items:center;justify-content:end;gap:5px;height:165px}
+.month-col strong{font-size:12px;font-variant-numeric:tabular-nums}
+.month-bar-track{height:113px;width:100%;max-width:42px;display:flex;align-items:end;border-radius:6px 6px 2px 2px;background:#27344a;overflow:hidden}
+.month-bar{width:100%;background:linear-gradient(0deg,#657df4,#a4b2ff);border-radius:6px 6px 0 0;min-height:0}
+.month-col small{font-size:11px;color:#aec0d6;white-space:nowrap}
+.month-list{display:grid;gap:7px}.month-row{display:flex;align-items:center;justify-content:space-between;gap:12px;border-bottom:1px solid #344257;padding:10px 4px}.month-row span{color:#aebed1}.month-row strong{font-variant-numeric:tabular-nums}
+#results.galleryMode{grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:12px}
+#results.galleryMode .item{display:flex;flex-direction:column;min-width:0}
+#results.galleryMode .cover{height:auto;aspect-ratio:3/4;width:100%;min-height:0}
+#results.galleryMode .info{padding:10px;min-width:0;align-self:stretch}
+#results.galleryMode .title{font-size:13px;line-height:1.45;min-height:0;display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:2;line-clamp:2;overflow:hidden;overflow-wrap:anywhere}
+#results.galleryMode .meta{font-size:11px;margin-top:5px}
+#results.galleryMode .meta:first-of-type{display:none}
+#results.galleryMode .tags{margin-top:6px}
+#results.galleryMode .tag{font-size:10px}
+html[data-theme="pink"] .rank-switch-btn{background:#fbeaf2;color:#86536e;border-color:#e9bfd4}
+html[data-theme="pink"] .rank-switch-btn.active{background:#d97ea9;color:#fff;border-color:#d97ea9}
+html[data-theme="pink"] .favorite-person,html[data-theme="pink"] .monthly-metric{background:#fbeaf2;border-color:#efd4e2}
+html[data-theme="pink"] .favorite-person-meta,html[data-theme="pink"] .monthly-metric span{color:#916c80}
+html[data-theme="pink"] .month-chart{background:#fff8fb;border-color:#efd8e3}
+html[data-theme="pink"] .month-bar-track{background:#f4dce8}
+html[data-theme="pink"] .month-bar{background:linear-gradient(0deg,#cf75a1,#efb8d2)}
+html[data-theme="pink"] .month-col small,html[data-theme="pink"] .month-row span{color:#946b81}
+html[data-theme="pink"] .month-row{border-color:#efd8e3}
+@media(max-width:640px){.rank-switch-btn{font-size:11px;padding:8px 3px}.favorite-actress-grid{grid-template-columns:1fr}.monthly-metric{padding:9px}.monthly-metric strong{font-size:19px}.month-chart{gap:4px;padding:12px 5px}.month-col small{font-size:10px}#results.galleryMode{grid-template-columns:repeat(2,minmax(0,1fr));gap:9px}}
+
+/* Cloud authentication and status */
+#cloudGate{position:fixed;inset:0;z-index:120;background:var(--cloud-bg,#0b1220);display:flex;align-items:center;justify-content:center;padding:20px;overflow:auto}
+#cloudGate[hidden]{display:none!important}
+.cloud-auth{background:#172337;color:#f0f4fc;border:1px solid #354761;border-radius:20px;width:min(440px,100%);padding:24px;box-shadow:0 15px 55px #0005}
+.cloud-auth h1{font-size:25px;margin:0 0 5px}.cloud-auth label{margin-top:14px}.cloud-auth .field{width:100%;background:#0f1829;color:white}.cloud-auth .btn{width:100%;margin-top:12px}
+.cloud-status{font-size:13px;line-height:1.65;color:#bccbea}.cloud-error{color:#ffb4b4;white-space:pre-wrap}
+.cloud-account{display:flex;align-items:center;gap:7px;flex-wrap:wrap;margin-bottom:10px;justify-content:flex-end}
+.cloud-account .btn{padding:6px 11px;font-size:12px}
+.cloud-busy{position:fixed;inset:auto 10px 100px;z-index:125;margin:auto;max-width:420px;background:#213650;color:white;padding:12px 18px;border-radius:12px;text-align:center;box-shadow:0 4px 20px #0005}
+@media(min-width:700px){.cloud-busy{bottom:30px}}
+html[data-theme="pink"] #cloudGate{--cloud-bg:#fff0f6}
+.cloud-auth .small-note{font-size:12px;color:#aec0d9;line-height:1.65}
+</style></head><body>
+<div id="cloudGate" aria-live="polite"><section class="cloud-auth">
+ <h1>☁ 漢アプリ Cloud</h1><p class="small-note">Ver.2.0 β · ローカル版とは別のデータです</p>
+ <p id="authNotice" class="cloud-status">クラウドへ接続しています…</p>
+ <form id="cloudAuthForm" hidden>
+ <label for="cloudEmail">メールアドレス</label><input class="field" id="cloudEmail" type="email" autocomplete="email" required>
+ <label for="cloudPassword">パスワード（12文字以上）</label><input class="field" id="cloudPassword" type="password" autocomplete="current-password" minlength="12" required>
+ <button class="btn primary" type="submit" id="cloudSignIn">ログイン</button>
+ <button class="btn" type="button" id="cloudSignUp">新規アカウント作成</button>
+ <button class="btn" type="button" id="cloudReset">パスワード再設定メール</button><button class="btn" type="button" id="cloudUpdatePassword" hidden>新しいパスワードを設定</button>
+ </form><p id="cloudAuthError" class="cloud-status cloud-error"></p>
+ <p class="small-note">メール認証後、このアプリに戻ってログインしてください。作品情報は各ユーザー専用で保存します。</p>
+</section></div>
+<div id="cloudBusy" class="cloud-busy" hidden>クラウドへ保存しています…</div>
+<header><div class="wrap head"><div><div class="logo">◈ 漢アプリ <small class="version">v2.0 β</small></div><div class="sub">自分だけの作品ライブラリ</div></div><button class="btn primary" id="add">＋ 作品登録</button></div></header><main class="wrap"><div class="cloud-account"><span class="muted" id="cloudUser"></span><button class="btn" type="button" id="cloudReload">↻ 同期</button><button class="btn" type="button" id="cloudLogout">ログアウト</button></div>
+
+
+<section class="app-page active" data-page="list" id="tab-list"><div class="topline"><div><h1>マイライブラリ</h1><div class="muted">お気に入りの作品を、いつでも見つけられる。</div></div></div><section class="stats"><div class="stat"><strong id="total">0</strong><span>登録作品</span></div><div class="stat"><strong id="favorites">0</strong><span>お気に入り</span></div><div class="stat"><strong id="actresses">0</strong><span>登録女優</span></div></section><div class="toolbar"><input class="field" id="search" placeholder="🔎  品番・タイトル・女優・ジャンルで検索"/><select class="field" id="filter"><option value="all">すべての作品</option><option value="fav">お気に入りのみ</option><option value="high">高評価（4以上）</option></select><select class="field" id="sort"><option value="updated">最近登録・更新した順</option><option value="created">登録日が新しい順</option><option value="viewed">最終視聴が新しい順（手動含む）</option><option value="rating">評価が高い順</option><option value="plays">視聴回数が多い順</option><option value="lastPlay">視聴リンクを開いた順</option><option value="title">タイトル順</option></select></div><section class="advanced" id="advanced">
+<div class="advanced-head"><button aria-expanded="false" class="btn advanced-toggle" id="advancedToggle" type="button">🔎 詳細検索・絞り込み <span id="filterActiveCount"></span><span id="advancedChevron">⌄</span></button><button class="btn small" id="clearFilters" type="button">条件をクリア</button></div>
+<div hidden="" id="advancedBody">
+<div class="advanced-row"><strong>女優から探す</strong><span class="hint">複数選ぶと、いずれかの女優を含む作品を表示</span></div>
+<input autocomplete="off" class="field" id="actressFilterSearch" placeholder="女優名で候補を検索" type="search"/>
+<div class="filterchips" id="actressFilters"></div>
+<div class="advanced-row"><strong>ジャンルから探す</strong><span class="hint">登録作品に使われているジャンルを表示</span></div>
+<input autocomplete="off" class="field" id="genreFilterSearch" placeholder="ジャンル名で候補を検索" type="search"/>
+<div class="filterchips" id="genreFilters"></div>
+<div class="match-row"><span>ジャンルの一致条件</span><div class="segmented"><button class="active" id="matchAnd" type="button">すべて一致 AND</button><button id="matchOr" type="button">いずれか一致 OR</button></div></div>
+</div>
+<div class="active-summary" hidden="" id="activeFilterSummary"></div>
+<div class="saved-searches"><label for="savedSearchName">検索条件を保存</label><div class="save-row"><input class="field" id="savedSearchName" placeholder="例：お気に入りのジャンル"/><button class="btn primary small" id="saveSearch" type="button">保存</button></div><div class="saved-search-list" id="savedSearchList"></div></div>
+</section><div class="listControl"><span class="muted" id="resultCount">0件表示</span><button class="btn small" id="galleryToggle" type="button" aria-pressed="false">▧ ギャラリー表示</button></div><div class="grid" id="results"></div></section><section class="app-page" data-page="rank" id="tab-rank"><h1>ランキング・分析</h1><div class="rank-switch" role="group" aria-label="ランキング画面を切り替える"><button class="rank-switch-btn active" type="button" data-rank-view="overview" aria-pressed="true">ランキング</button><button class="rank-switch-btn" type="button" data-rank-view="favorites" aria-pressed="false">♥ お気に入り女優</button><button class="rank-switch-btn" type="button" data-rank-view="monthly" aria-pressed="false">月別分析</button></div><div id="rankOverview" class="rank-view active"><p class="muted">視聴リンクの利用回数から集計。女優名やジャンルを押すと作品一覧へ移動するで。</p><section class="v15-panel"><div class="v15-head"><h2>★ 女優ライブラリ</h2><span class="hint">♡でお気に入り登録、名前で作品を絞り込み</span></div><div class="v15-actresses" id="actressBoard"></div></section><section class="v15-panel"><div class="v15-head"><h2>📊 視聴データ分析</h2><span class="hint">視聴リンクを開いた回数を集計</span></div><div class="v15-metrics" id="analysisMetrics"></div><div class="v15-rankings"><div><h3>よく開く作品</h3><div id="topWorks"></div></div><div><h3>女優ランキング</h3><div id="topActresses"></div></div><div><h3>ジャンルランキング</h3><div id="topGenres"></div></div></div></section></div><div id="rankFavorites" class="rank-view" hidden><section class="v15-panel"><div class="v15-head"><h2>♥ お気に入り女優</h2><span class="hint">登録した女優をまとめて確認</span></div><div id="favoriteActressCards" class="favorite-actress-grid"></div></section></div><div id="rankMonthly" class="rank-view" hidden><section class="v15-panel"><h2>📅 月別視聴リンク履歴</h2><p class="hint">「視聴する」を押した日時を月ごとに集計。手入力の視聴日は含まれません。</p><div class="monthly-metrics" id="monthlyMetrics"></div><div id="monthChart" class="month-chart" aria-label="月ごとの視聴リンク利用回数"></div><h3>月ごとの記録</h3><div id="monthList" class="month-list"></div></section></div></section><section class="app-page" data-page="history" id="tab-history"><h1>視聴履歴</h1><p class="muted">「視聴する」を押した履歴を新しい順に表示。実際の視聴完了を確認した記録ではないで。</p><div class="history-summary" id="historySummary"></div><div class="history-feed" id="historyFeed"></div></section><section class="app-page" data-page="settings" id="tab-settings"><h1>設定</h1><p class="muted">表示やデータ管理はここから変更できるで。</p><div class="footer">このバージョンの情報は、このブラウザ内だけに保存されます。データ管理から定期的にバックアップしてください。共有端末やシークレットモードでの利用には注意してください。</div><div class="settings-panel"><div class="topActions"><button class="btn" id="themeButton" type="button">🎨 背景色</button><button class="btn" id="backup">データ管理</button></div><button aria-label="一覧の表示切替" class="btn small" id="layoutSwitch" type="button">▦ 2列表示</button></div></section></main><nav aria-label="メインメニュー" class="bottom-nav" id="bottomNav"><button aria-current="page" class="bottom-tab active" data-tab="list" type="button"><span class="bottom-icon">▦</span><span>作品一覧</span></button><button aria-current="false" class="bottom-tab" data-tab="rank" type="button"><span class="bottom-icon">★</span><span>ランキング</span></button><button aria-current="false" class="bottom-tab" data-tab="history" type="button"><span class="bottom-icon">◷</span><span>視聴履歴</span></button><button aria-current="false" class="bottom-tab" data-tab="settings" type="button"><span class="bottom-icon">⚙</span><span>設定</span></button></nav>
+<dialog id="editor"><div class="modalhead"><strong id="editorTitle">作品を登録</strong><button aria-label="閉じる" class="x" data-close="editor">×</button></div><div class="modalbody"><form id="form"><div class="formIntro">作品タイトルか品番のいずれか1つで登録可能。画像・女優・ジャンルは後から編集できるで！</div><nav aria-label="入力項目へ移動" class="formJumps"><button data-jump="name" type="button">基本情報</button><button data-jump="actressQuery" type="button">女優</button><button data-jump="genreQuery" type="button">ジャンル</button><button data-jump="memo" type="button">評価・メモ</button></nav><input id="editid" type="hidden"/><div class="formgrid"><div class="full"><label for="cover">パッケージ画像</label><input accept="image/*" class="field" id="cover" type="file"/><div class="hint">スクリーンショットもOK。画像は端末内に保存されます。</div><div class="preview" id="coverPreview">画像なし</div><button class="btn" id="clearCover" type="button">画像を削除</button></div><div class="full"><label for="name">作品タイトル</label><input class="field" id="name" placeholder="作品タイトル（任意）"/></div><div><label for="distribution">配信品番</label><input class="field" id="distribution" placeholder="例：配信品番"/></div><div><label for="maker">メーカー品番</label><input class="field" id="maker" placeholder="例：メーカー品番"/></div><div class="full"><label for="actressQuery">女優 <span class="soft-note">複数登録OK</span></label><input id="performers" type="hidden"/><div class="chip-list" id="actressSelected"></div><div class="suggest-wrap"><input aria-describedby="actressHelp" autocomplete="off" class="field" id="actressQuery" placeholder="名前を入力して追加・登録済みから選択"/><div class="suggest-panel" hidden="" id="actressSuggestions"></div></div><div class="hint" id="actressHelp">1文字から登録済みの女優を候補表示。新しい名前も追加できます。「追加」をタップ、または Enter で確定。</div><div class="quick-heading">登録済みの女優 <span class="soft-note" id="actressExistingCount"></span></div><div class="quick-list" id="actressQuick"></div></div><div class="full"><label for="genreQuery">ジャンル <span class="soft-note">複数選択OK</span></label><input id="genres" type="hidden"/><div class="chip-list" id="genreSelected"></div><div class="suggest-wrap"><input autocomplete="off" class="field" id="genreQuery" placeholder="ジャンルを検索・自由に追加"/><div class="suggest-panel" hidden="" id="genreSuggestions"></div></div><div class="hint">下の候補をタップして選択。既存の自由入力ジャンルもそのまま残ります。</div><div class="genre-categories" id="genreCategories"></div></div><div class="full"><label for="url">作品ページURL</label><input class="field" id="url" inputmode="url" placeholder="https://...（作品紹介・販売ページ）" type="url"/><div class="hint">作品詳細の「作品ページを開く」から移動します。</div></div><div class="full"><label for="watchUrl">視聴URL</label><input class="field" id="watchUrl" inputmode="url" placeholder="https://...（視聴ページ）" type="url"/><div class="hint">作品詳細の「視聴する」から移動します。空欄でもOK。</div></div><div><label for="viewedAt">視聴日（手動入力）</label><div class="hint">自動記録より新しい日付なら、並び替えで優先されます。</div><input class="field" id="viewedAt" type="date"/></div><div><label for="rating">評価</label><select class="field" id="rating"><option value="0">未評価</option><option value="1">★ 1</option><option value="2">★★ 2</option><option value="3">★★★ 3</option><option value="4">★★★★ 4</option><option value="5">★★★★★ 5</option></select></div><div class="full"><label><input id="favorite" style="width:auto" type="checkbox"/> お気に入りに登録</label></div><div class="full"><label for="memo">メモ</label><textarea class="field" id="memo" placeholder="覚えておきたいこと"></textarea></div></div><div class="actions"><button class="btn" data-close="editor" type="button">キャンセル</button><button class="btn primary" type="submit">保存する</button></div></form></div></dialog>
+<dialog aria-label="パッケージ画像の拡大表示" id="imageZoom"><div class="zoomTop"><span id="zoomTitle"></span><button aria-label="画像を閉じる" class="zoomClose" id="zoomClose" type="button">× 閉じる</button></div><div class="zoomArea"><img alt="パッケージ画像の拡大表示" id="zoomImage"/></div></dialog>
+<dialog id="themeDialog"><div class="modalhead"><strong>🎨 背景色を選ぶ</strong><button aria-label="閉じる" class="x" data-close="themeDialog">×</button></div><div class="modalbody"><p class="muted">好きな色に切り替えられるよ。選んだ色は次回開いたときも引き継がれます。</p><div class="themeChoices"><button class="themeChoice" data-theme="dark" type="button"><span class="swatch darkSwatch"></span><strong>🌙 ブラック</strong><small>今までの落ち着いたダークカラー</small></button><button class="themeChoice" data-theme="pink" type="button"><span class="swatch pinkSwatch"></span><strong>🌸 薄ピンク</strong><small>やさしいパステルピンク</small></button></div></div></dialog><dialog id="viewer"><div class="modalhead"><strong>作品詳細</strong><button aria-label="閉じる" class="x" data-close="viewer">×</button></div><div class="modalbody" id="detail"></div></dialog>
+<dialog id="manager"><div class="modalhead"><strong>データ管理</strong><button aria-label="閉じる" class="x" data-close="manager">×</button></div><div class="modalbody"><h2>バックアップ・復元</h2><p class="muted">画像を含めてJSONファイルに書き出します。端末移行や将来のクラウド移行にも利用できる形式です。</p><div class="actions" style="justify-content:flex-start"><button class="btn primary" id="export" type="button">バックアップを保存</button><button class="btn" id="import" type="button">バックアップを読み込む</button><input accept="application/json,.json" id="io" type="file"/></div><div class="notice">復元すると現在のデータにバックアップの作品が追加・更新されます。同じ作品IDはバックアップ側の内容に置き換わります。安全のため、復元前にもバックアップを取ってください。</div><p class="muted">保存先：このブラウザのIndexedDB。サイトデータを削除すると登録情報も消えるため、定期的なバックアップが必要です。</p></div></dialog><div id="toast" role="status"></div>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.js"></script><script>
+'use strict';const DB='my-collection-db',STORE='works';let db,works=[],imageState=null,activeId=null;const $=id=>document.getElementById(id),esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c])),split=s=>[...new Set(String(s||'').split(/[,、，\n]/).map(x=>x.trim()).filter(Boolean))],date=()=>new Date().toISOString(),uuid=()=>crypto.randomUUID?crypto.randomUUID():`id-${Date.now()}-${Math.random()}`;function notify(s){$('toast').textContent=s;$('toast').style.display='block';clearTimeout(notify.timer);notify.timer=setTimeout(()=>$('toast').style.display='none',3200)}
+const CLOUD_URL='https://lakduhnnshqowofuzexb.supabase.co';
+const CLOUD_KEY='sb_publishable_l9B5hOEzPrty1DO78FOjPg_c8QLoJz5';
+const CLOUD_BUCKET='otoko-covers';
+let client=null,currentUser=null,cloudPreferences={},savePreferencesQueue=Promise.resolve();
+function busy(message){const n=$('cloudBusy');n.textContent=message||'通信中…';n.hidden=false}
+function unbusy(){ $('cloudBusy').hidden=true }
+function requireLogin(){if(!currentUser)throw Error('ログインしてください')}
+function checkResult(result){if(result.error)throw result.error;return result.data}
+function isDataImage(str){return typeof str==='string'&&/^data:image\/(jpeg|png|webp);base64,/.test(str)}
+async function uploadImage(work){
+ requireLogin();
+ if(work.image===null){work.imagePath=null;delete work.image;return work}
+ if(isDataImage(work.image)){
+  const blob=await (await fetch(work.image)).blob();
+  if(blob.size>2*1024*1024)throw Error('画像が2MBを超えています。小さい画像を選んでください');
+  const path=currentUser.id+'/'+encodeURIComponent(String(work.id))+'.jpg';
+  checkResult(await client.storage.from(CLOUD_BUCKET).upload(path,blob,{upsert:true,contentType:'image/jpeg',cacheControl:'3600'}));
+  work.imagePath=path;
+  delete work.image;
+ }else if(typeof work.image==='string'&&work.image.startsWith('https://')){
+  // A signed URL is only for display; keep its original private object path.
+  delete work.image;
+ }else{delete work.image}
+ return work;
+}
+async function putCloudWork(work){
+ requireLogin();
+ const copy=await uploadImage({...work});
+ const row=checkResult(await client.from('works').select('id').eq('user_id',currentUser.id).eq('legacy_id',String(copy.id)).maybeSingle());
+ if(row){checkResult(await client.from('works').update({data:copy,updated_at:new Date().toISOString()}).eq('id',row.id).eq('user_id',currentUser.id))}
+ else{checkResult(await client.from('works').insert({user_id:currentUser.id,legacy_id:String(copy.id),data:copy}))}
+}
+async function removeCloudWork(id){
+ requireLogin();
+ const current=works.find(w=>String(w.id)===String(id));
+ const rows=checkResult(await client.from('works').delete().eq('user_id',currentUser.id).eq('legacy_id',String(id)).select('id'));
+ if(!rows?.length)throw Error('削除対象が見つかりません');
+ if(current?.imagePath)await client.storage.from(CLOUD_BUCKET).remove([current.imagePath]);
+}
+async function getWorkData(){
+ requireLogin();const result=await client.from('works').select('legacy_id,data').eq('user_id',currentUser.id).order('created_at',{ascending:false}).limit(2000);
+ const rows=checkResult(result)||[];
+ return Promise.all(rows.map(async row=>{
+  const w={...row.data,id:row.data?.id||row.legacy_id};
+  if(w.imagePath){const signed=await client.storage.from(CLOUD_BUCKET).createSignedUrl(w.imagePath,3600);w.image=signed.data?.signedUrl||null}
+  return w;
+ }));
+}
+async function refresh(){works=await getWorkData();render();if(currentTab==='history')drawGlobalHistory()}
+function pic(w){return w.image?`<img src="${esc(w.image)}" alt="${esc(w.title||'作品パッケージ')}">`:'<span class="placeholder">▧</span>'}function render(){
+ const q=$('search').value.trim().toLocaleLowerCase(),fil=$('filter').value,sort=$('sort').value;
+ $('total').textContent=works.length;$('favorites').textContent=works.filter(x=>x.favorite).length;
+ $('actresses').textContent=new Set(works.flatMap(x=>x.performers||[])).size;
+ const data=works.filter(w=>{
+  const okBasic=(fil==='all'||(fil==='fav'&&w.favorite)||(fil==='high'&&w.rating>=4));
+  const okText=[w.title,w.distribution,w.maker,...(w.performers||[]),...(w.genres||[]),w.memo].join(' ').toLocaleLowerCase().includes(q);
+  const okActress=!filterActresses.length||filterActresses.some(a=>(w.performers||[]).includes(a));
+  const okGenre=!filterGenres.length||(filterMatch==='AND'?filterGenres.every(g=>(w.genres||[]).includes(g)):filterGenres.some(g=>(w.genres||[]).includes(g)));
+  return okBasic&&okText&&okActress&&okGenre;
+ }).sort((a,b)=>sort==='rating'?(b.rating||0)-(a.rating||0):sort==='viewed'?(watchSortTime(b)===watchSortTime(a)?0:watchSortTime(b)>watchSortTime(a)?1:-1):sort==='plays'?watchCount(b)-watchCount(a)||lastPlay(b).localeCompare(lastPlay(a)):sort==='lastPlay'?lastPlay(b).localeCompare(lastPlay(a)):sort==='created'?(b.createdAt||'').localeCompare(a.createdAt||''):sort==='title'?(a.title||'').localeCompare(b.title||'','ja'):(b.updatedAt||'').localeCompare(a.updatedAt||'') || (a.id||'').localeCompare(b.id||''));
+ $('results').className=data.length?'grid'+(galleryMode?' galleryMode':(layoutMode==='one'?' oneColumn':'')):'empty';
+ $('resultCount').textContent=`${data.length}件表示 / 全${works.length}件`;
+ $('results').innerHTML=data.length?data.map(w=>`<article class="item" role="button" tabindex="0" data-id="${esc(w.id)}"><div class="cover" data-zoom="${esc(w.id)}" aria-label="画像を拡大">${pic(w)}</div><div class="info"><div class="title">${esc(w.title||w.distribution||w.maker||'タイトル未設定')}</div><div class="meta">${esc([w.distribution,w.maker].filter(Boolean).join(' / ')||'品番未設定')}</div><div class="meta">${esc((w.performers||[]).join('、')||'女優未設定')}</div><div class="tags">${w.favorite?'<span class="tag">♥ お気に入り</span>':''}${w.rating?`<span class="tag rating">${'★'.repeat(w.rating)}</span>`:''}${watchCount(w)?`<span class="tag">▶ ${watchCount(w)}回</span>`:''}${effectiveWatch(w)?`<span class="tag">📅 ${esc(effectiveWatch(w).slice(0,10))}</span>`:''}</div></div></article>`).join(''):'条件に一致する作品がありません。絞り込みを解除するか、作品を登録してください。';
+ document.querySelectorAll('.item').forEach(el=>{el.onclick=()=>showDetail(el.dataset.id);el.onkeydown=e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();showDetail(el.dataset.id)}};const c=el.querySelector('.cover');if(c&&c.querySelector('img')){c.title='タップして画像を拡大';c.onclick=e=>{e.stopPropagation();openImageZoom(el.dataset.id)}}});
+ drawFilterButtons();drawV15();
+}
+function preview(){ $('coverPreview').innerHTML=imageState?`<img src="${esc(imageState)}" alt="画像プレビュー">`:'画像なし'}function edit(id=null){const w=id?works.find(x=>x.id===id):null;$('form').reset();$('editid').value=w?.id||'';for(const [field,key] of [['name','title'],['distribution','distribution'],['maker','maker'],['url','url'],['watchUrl','watchUrl'],['viewedAt','viewedAt'],['memo','memo']])$(field).value=w?.[key]||'';$('performers').value=(w?.performers||[]).join(', ');$('genres').value=(w?.genres||[]).join(', ');$('rating').value=w?.rating||0;$('favorite').checked=!!w?.favorite;initializeTags(w);imageState=w?.image||null;preview();$('editorTitle').textContent=w?'作品を編集':'作品を登録';$('viewer').close();$('editor').showModal()}function row(label,value){return `<div class="detail-row"><b>${label}</b>${esc(value||'未設定')}</div>`}// v1.4.1: A "view" means the watch link was tapped, not verified video playback.
+function historyOf(w){return Array.isArray(w?.watchHistory)?w.watchHistory.filter(x=>typeof x==='string'&&!Number.isNaN(Date.parse(x))):[]}
+function watchCount(w){return historyOf(w).length}
+function lastPlay(w){const h=historyOf(w);return h.length?h.reduce((a,b)=>a>b?a:b):''}
+function effectiveWatch(w){const manual=/^\d{4}-\d{2}-\d{2}$/.test(w.viewedAt||'')?w.viewedAt:'';const auto=lastPlay(w);if(!manual)return auto||'';if(!auto)return manual;const d=new Date(auto),localDay=[d.getFullYear(),String(d.getMonth()+1).padStart(2,'0'),String(d.getDate()).padStart(2,'0')].join('-');return localDay>=manual?auto:manual}
+function watchSortTime(w){const v=effectiveWatch(w);if(!v)return -Infinity;if(v.length===10)return new Date(v+'T00:00:00').getTime();return new Date(v).getTime()}
+function formatEffective(w){const latest=effectiveWatch(w);if(!latest)return '記録なし';if(latest===lastPlay(w))return fmtWatch(latest)+'（自動）';return w.viewedAt+'（手動）'}
+function fmtWatch(iso){if(!iso)return '記録なし';const d=new Date(iso);return Number.isNaN(d.getTime())?'記録なし':d.toLocaleString('ja-JP',{year:'numeric',month:'2-digit',day:'2-digit',hour:'2-digit',minute:'2-digit'})}
+async function recordWatch(id){
+ try{const old=works.find(x=>String(x.id)===String(id));if(!old)throw Error('作品がありません');
+ const w={...old,watchHistory:[...historyOf(old),date()]};
+ busy('視聴履歴を保存しています…');await putCloudWork(w);await refresh();if($('viewer').open&&activeId===id)showDetail(id);notify('視聴リンクの記録を同期しました')
+ }catch(e){notify('視聴履歴を保存できません: '+e.message)}finally{unbusy()}
+}
+async function removeWatch(id,index){
+ const old=works.find(x=>String(x.id)===String(id)),h=historyOf(old);
+ if(index<0||index>=h.length||!confirm('この視聴履歴を1件削除しますか？'))return;
+ const next=h.slice();next.splice(index,1);
+ try{busy('視聴履歴を更新しています…');await putCloudWork({...old,watchHistory:next});await refresh();if($('viewer').open&&activeId===id)showDetail(id);notify('履歴を削除しました')}
+ catch(e){notify('履歴を削除できません: '+e.message)}finally{unbusy()}
+}
+function showDetail(id){
+ const w=works.find(x=>x.id===id);if(!w)return;activeId=id;
+ let link='';for(const [value,label,style,isWatch] of [[w.url,'作品ページを開く ↗','',false],[w.watchUrl,'視聴する ▶','primary',true]]){
+  try{const u=new URL(value);if(['http:','https:'].includes(u.protocol))link+=`<a class="btn ${style}" ${isWatch?'id="watchLink"':''} href="${esc(u.href)}" target="_blank" rel="noopener noreferrer" style="display:inline-flex;align-items:center;justify-content:center;text-decoration:none">${label}</a>`}catch{}
+ }
+ const history=historyOf(w);
+ const historyMarkup=history.length?`<div class="watch-history">${history.map((t,i)=>({t,i})).reverse().map(({t,i})=>`<div class="watch-event"><span>▶ ${esc(fmtWatch(t))}</span><button class="btn small" type="button" data-remove-play="${i}" aria-label="履歴を削除">削除</button></div>`).join('')}</div>`:'<p class="muted" style="font-size:13px">まだ履歴はありません。「視聴する」を押すと自動で記録されます。</p>';
+ $('detail').innerHTML=`<div class="detail"><div class="cover">${pic(w)}</div><div><h2 style="margin-top:0">${esc(w.title||w.distribution||w.maker||'タイトル未設定')}</h2>${row('配信品番',w.distribution)}${row('メーカー品番',w.maker)}${row('女優',(w.performers||[]).join('、'))}${row('ジャンル',(w.genres||[]).join('、'))}${row('視聴日（手動入力）',w.viewedAt)}${row('最終視聴日（自動・手動の新しい方）',formatEffective(w))}${row('評価',w.rating?'★'.repeat(w.rating):'未評価')}${row('お気に入り',w.favorite?'登録済み':'未登録')}${row('メモ',w.memo)}<div class="work-links">${link}</div><div class="watch-summary"><div><small>視聴リンクを開いた回数</small><strong>${watchCount(w)}回</strong></div><div><small>最終視聴リンク日時</small><strong>${esc(fmtWatch(lastPlay(w)))}</strong></div></div><div class="watch-help">※実際の動画再生や視聴完了ではなく「視聴する」ボタンを押した記録です。</div><h3 style="margin-bottom:8px">視聴履歴</h3>${historyMarkup}</div></div><div class="actions"><button class="btn danger" id="deleteWork">削除</button><button class="btn primary" id="editWork">編集する</button></div>`;
+ const detailCover=$('detail').querySelector('.cover');if(w.image){detailCover.classList.add('zoomable');detailCover.setAttribute('title','タップで拡大');detailCover.onclick=()=>openImageZoom(id)}
+ const watchLink=$('watchLink');if(watchLink)watchLink.addEventListener('click',()=>{void recordWatch(id)});
+ $('detail').querySelectorAll('[data-remove-play]').forEach(b=>b.onclick=()=>removeWatch(id,Number(b.dataset.removePlay)));
+ $('editWork').onclick=()=>edit(id);
+ $('deleteWork').onclick=async()=>{if(!confirm('この作品を削除しますか？'))return;try{busy('削除しています…');await removeCloudWork(id);$('viewer').close();await refresh();notify('削除しました')}catch(e){notify('削除に失敗しました: '+e.message)}finally{unbusy()}};
+ if(!$('viewer').open)$('viewer').showModal();
+}
+async function toDataUrl(file){if(file.size>12*1024*1024)throw Error('画像が12MBを超えています');return new Promise((resolve,reject)=>{const reader=new FileReader();reader.onload=()=>resolve(reader.result);reader.onerror=()=>reject(reader.error);reader.readAsDataURL(file)})}async function prepareImage(file){const raw=await toDataUrl(file);return new Promise((resolve)=>{const img=new Image();img.onload=()=>{const limit=1100,scale=Math.min(1,limit/Math.max(img.width,img.height)),c=document.createElement('canvas');c.width=Math.max(1,Math.round(img.width*scale));c.height=Math.max(1,Math.round(img.height*scale));c.getContext('2d').drawImage(img,0,0,c.width,c.height);try{resolve(c.toDataURL('image/jpeg',.82))}catch{resolve(raw)}};img.onerror=()=>resolve(raw);img.src=raw})}function checkUrl(s){if(!s)return true;try{return ['http:','https:'].includes(new URL(s).protocol)}catch{return false}}$('add').onclick=()=>edit();$('themeButton').onclick=()=>$('themeDialog').showModal();$('backup').onclick=()=>$('manager').showModal();document.querySelectorAll('[data-close]').forEach(x=>x.onclick=()=>$(x.dataset.close).close());$('cover').onchange=async e=>{const f=e.target.files?.[0];if(!f)return;try{imageState=await prepareImage(f);preview()}catch(err){notify(err.message)}};$('clearCover').onclick=()=>{imageState=null;$('cover').value='';preview()};$('form').onsubmit=async e=>{e.preventDefault();for(const type of ['actress','genre']){const field=$(type==='actress'?'actressQuery':'genreQuery');const pending=field.value.trim();if(pending){toggleTag(type,pending,true);field.value=''}}syncTags();const id=$('editid').value,old=works.find(x=>x.id===id),w={...(old||{}),id:id||uuid(),title:$('name').value.trim(),distribution:$('distribution').value.trim(),maker:$('maker').value.trim(),performers:split($('performers').value),genres:split($('genres').value),url:$('url').value.trim(),watchUrl:$('watchUrl').value.trim(),viewedAt:$('viewedAt').value,rating:Number($('rating').value),favorite:$('favorite').checked,memo:$('memo').value.trim(),image:imageState,createdAt:old?.createdAt||date(),updatedAt:date()};if(!w.title&&!w.distribution&&!w.maker){notify('タイトルか品番を1つ以上入力してください');return}if(!checkUrl(w.url)||!checkUrl(w.watchUrl)){notify('URLは http:// または https:// で入力してください');return}const duplicate=works.find(x=>x.id!==id&&((w.distribution&&x.distribution===w.distribution)||(w.maker&&x.maker===w.maker)));if(duplicate&&!confirm('同じ品番の作品が登録されています。それでも保存しますか？'))return;try{busy('作品を保存しています…');await putCloudWork(w);$('editor').close();await refresh();notify('保存しました')}catch(err){notify('保存できませんでした: '+err.message)}finally{unbusy()}};['search','filter','sort'].forEach(x=>$(x).addEventListener(x==='search'?'input':'change',render));$('export').onclick=async()=>{try{const payload={app:'my-collection',schemaVersion:1,exportedAt:date(),works};const blob=new Blob([JSON.stringify(payload,null,2)],{type:'application/json'}),url=URL.createObjectURL(blob),a=document.createElement('a');a.href=url;a.download='my-collection-backup-'+new Date().toISOString().slice(0,10)+'.json';document.body.append(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(url),1000);notify('バックアップを書き出しました')}catch(err){notify('書き出しに失敗しました')}};$('import').onclick=()=>$('io').click();$('io').onchange=async e=>{const file=e.target.files?.[0];if(!file)return;try{const input=JSON.parse(await file.text());if(input.app!=='my-collection'||input.schemaVersion!==1||!Array.isArray(input.works)||input.works.length>20000)throw Error('対応していないバックアップ形式です');const items=input.works.map(w=>{if(!w||typeof w.id!=='string'||!w.id||typeof w.title!=='string'||(w.image!=null&&!(typeof w.image==='string'&&/^data:image\/(jpeg|png|webp|gif);base64,/.test(w.image))))throw Error('不正な作品データが含まれています');return {...w,performers:Array.isArray(w.performers)?w.performers.filter(x=>typeof x==='string'):[],genres:Array.isArray(w.genres)?w.genres.filter(x=>typeof x==='string'):[],rating:Math.min(5,Math.max(0,Number(w.rating)||0)),favorite:!!w.favorite,url:checkUrl(w.url)?w.url:'',watchUrl:checkUrl(w.watchUrl)?(w.watchUrl||''):'',updatedAt:w.updatedAt||date()}});if(!confirm(`${items.length}件を読み込みます。IDが同じ作品は上書きされます。続行しますか？`))return;busy('バックアップを移行しています…');for(const w of items)await putCloudWork(w);await refresh();restoreV15Settings(input.settings);$('manager').close();notify(`${items.length}件を復元しました`)}catch(err){notify('読み込めませんでした: '+err.message)}finally{unbusy();e.target.value=''}};
+
+// Genre labels are an independent starter catalogue inspired by broad FANZA classifications, not an official API or complete taxonomy.
+const GENRE_GROUPS={
+ '出演者・雰囲気':['美少女','巨乳','爆乳','貧乳・微乳','スレンダー','美尻','美脚','ギャル','熟女','人妻・主婦','素人','お姉さん','OL','制服・コスプレ'],
+ 'シチュエーション':['恋人','イチャラブ','NTR・寝取られ','ナンパ','痴女','誘惑','逆ナン','密着','主観','ハメ撮り','マッサージ','ドラマ','ドキュメンタリー'],
+ 'プレイ・内容':['中出し','フェラ','騎乗位','手コキ','パイズリ','3P・4P','複数人','ハーレム','レズ','アナル','SM','M男','イラマチオ','潮吹き','拘束'],
+ '作品・配信形態':['単体作品','企画','総集編','VR','4K','独占配信','デビュー作品']
+};
+let selectedActresses=[], selectedGenres=[];
+const uniqueNames=arr=>[...new Set((arr||[]).map(x=>String(x).trim()).filter(Boolean))];
+const allActresses=()=>uniqueNames(works.flatMap(w=>Array.isArray(w.performers)?w.performers:[])).sort((a,b)=>a.localeCompare(b,'ja'));
+const allGenres=()=>uniqueNames([...Object.values(GENRE_GROUPS).flat(),...works.flatMap(w=>Array.isArray(w.genres)?w.genres:[]),...selectedGenres]);
+function syncTags(){ $('performers').value=selectedActresses.join(', '); $('genres').value=selectedGenres.join(', '); }
+function toggleTag(type,name,force){const arr=type==='actress'?selectedActresses:selectedGenres;name=String(name||'').trim();if(!name)return;const present=arr.includes(name);const shouldAdd=force===undefined?!present:force;if(shouldAdd&&!present)arr.push(name);if(!shouldAdd&&present)arr.splice(arr.indexOf(name),1);syncTags();drawTags();}
+function drawChips(id,arr,type){const el=$(id);el.replaceChildren();for(const name of arr){const chip=document.createElement('span');chip.className='chip';const text=document.createElement('span');text.textContent=name;const del=document.createElement('button');del.type='button';del.textContent='×';del.setAttribute('aria-label',name+'を解除');del.onclick=()=>toggleTag(type,name,false);chip.append(text,del);el.append(chip)}}
+function makePicker(name,type){const btn=document.createElement('button');btn.type='button';btn.className='pick-btn'+((type==='actress'?selectedActresses:selectedGenres).includes(name)?' selected':'');btn.textContent=name;btn.setAttribute('aria-pressed',btn.classList.contains('selected')?'true':'false');btn.onclick=()=>{toggleTag(type,name);if(type==='actress')$('actressQuery').focus();else $('genreQuery').blur()};return btn}
+function drawTags(){drawChips('actressSelected',selectedActresses,'actress');drawChips('genreSelected',selectedGenres,'genre');const quick=$('actressQuick');quick.replaceChildren();const list=allActresses();$('actressExistingCount').textContent=`(${list.length}人)`;list.forEach(name=>quick.append(makePicker(name,'actress')));
+ const container=$('genreCategories');const openGroups=new Set([...container.querySelectorAll('details[open]')].map(el=>el.dataset.group));const initial=!container.querySelector('details');container.replaceChildren();for(const [group,options] of Object.entries(GENRE_GROUPS)){const details=document.createElement('details');details.className='genre-group';details.dataset.group=group;details.open=initial?(group==='出演者・雰囲気'):openGroups.has(group);const summary=document.createElement('summary');const label=document.createElement('span');label.textContent=group;const count=document.createElement('span');count.className='genre-count';count.textContent=`${options.filter(n=>selectedGenres.includes(n)).length}件選択`;summary.append(label,count);const picks=document.createElement('div');picks.className='genre-picks';options.forEach(name=>picks.append(makePicker(name,'genre')));details.append(summary,picks);container.append(details)}
+ const custom=selectedGenres.filter(x=>!Object.values(GENRE_GROUPS).flat().includes(x));if(custom.length){const info=document.createElement('div');info.className='genre-caption';info.textContent='自由追加・以前登録したジャンル：'+custom.join('、');container.append(info)}
+ renderSuggestions('actress');renderSuggestions('genre');}
+function renderSuggestions(type){const input=$(type==='actress'?'actressQuery':'genreQuery');const panel=$(type==='actress'?'actressSuggestions':'genreSuggestions');const q=input.value.trim();panel.replaceChildren();if(!q){panel.hidden=true;return}const catalog=type==='actress'?allActresses():allGenres();const chosen=type==='actress'?selectedActresses:selectedGenres;const matches=catalog.filter(x=>x.toLocaleLowerCase().includes(q.toLocaleLowerCase())&&!chosen.includes(x)).slice(0,9);
+ function option(name,isNew){const b=document.createElement('button');b.type='button';b.className='suggest-item';const t=document.createElement('span');t.textContent=name;const meta=document.createElement('small');meta.textContent=isNew?'＋ 新規追加':'＋ 選択';b.append(t,meta);b.addEventListener('pointerdown',e=>e.preventDefault());b.onclick=()=>{toggleTag(type,name,true);input.value='';panel.hidden=true;if(type==='actress')input.focus();else input.blur()};panel.append(b)}
+ matches.forEach(n=>option(n,false));if(!catalog.includes(q)&&!chosen.includes(q))option(q,true);panel.hidden=panel.children.length===0;}
+function initializeTags(w){selectedActresses=uniqueNames(w?.performers||[]);selectedGenres=uniqueNames(w?.genres||[]);$('actressQuery').value='';$('genreQuery').value='';syncTags();drawTags()}
+for(const type of ['actress','genre']){const field=$(type==='actress'?'actressQuery':'genreQuery');field.addEventListener('input',()=>renderSuggestions(type));field.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===','||e.key==='、'){e.preventDefault();const q=field.value.trim().replace(/[,、]$/,'');if(q){const matches=(type==='actress'?allActresses():allGenres()).filter(x=>x.toLocaleLowerCase().includes(q.toLocaleLowerCase())&&!(type==='actress'?selectedActresses:selectedGenres).includes(x));toggleTag(type,matches.length===1?matches[0]:q,true)}field.value='';renderSuggestions(type)}if(e.key==='Escape')$(type==='actress'?'actressSuggestions':'genreSuggestions').hidden=true});field.addEventListener('blur',()=>setTimeout(()=>$(type==='actress'?'actressSuggestions':'genreSuggestions').hidden=true,150))}
+
+
+// Ver.1.3: in-memory filters only; original IndexedDB schema and preferences are retained.
+let filterActresses=[],filterGenres=[],filterMatch='AND';
+function filterCount(name,kind){return works.filter(w=>(kind==='actress'?w.performers:w.genres||[])?.includes(name)).length}
+function drawFilterButtons(){
+ const counts=(kind)=>{const map=new Map();for(const w of works)for(const name of (kind==='actress'?w.performers:w.genres)||[])if(name)map.set(name,(map.get(name)||0)+1);return [...map].sort((a,b)=>b[1]-a[1]||a[0].localeCompare(b[0],'ja'))};
+ const build=(kind,id,query,selected)=>{const el=$(id),term=$(query).value.trim().toLocaleLowerCase();el.replaceChildren();let n=0;
+  for(const [name,count] of counts(kind)){if(!name.toLocaleLowerCase().includes(term))continue;n++;const btn=document.createElement('button');btn.type='button';btn.className='filter-chip'+(selected.includes(name)?' chosen':'');btn.setAttribute('aria-pressed',selected.includes(name)?'true':'false');btn.textContent=`${name} (${count})`;btn.onclick=()=>{const pos=selected.indexOf(name);if(pos>=0)selected.splice(pos,1);else selected.push(name);render()};el.append(btn)}
+  if(!n){const hint=document.createElement('span');hint.className='hint';hint.textContent=works.length?'該当する候補なし':'作品を登録すると候補が表示されるよ';el.append(hint)}
+ };
+ build('actress','actressFilters','actressFilterSearch',filterActresses);build('genre','genreFilters','genreFilterSearch',filterGenres);
+ $('matchAnd').classList.toggle('active',filterMatch==='AND');$('matchOr').classList.toggle('active',filterMatch==='OR');
+ const count=filterActresses.length+filterGenres.length;$('filterActiveCount').textContent=count?`（${count}条件）`:'';
+ const summary=$('activeFilterSummary');summary.hidden=!count;summary.replaceChildren();
+ if(count){const text=document.createElement('span');text.textContent='選択中：';summary.append(text);for(const [type,arr] of [['actress',filterActresses],['genre',filterGenres]])for(const n of arr){const chip=document.createElement('button');chip.type='button';chip.className='summary-chip';chip.textContent=n+' ×';chip.onclick=()=>{arr.splice(arr.indexOf(n),1);render()};summary.append(chip)}}
+}
+$('advancedToggle').onclick=()=>{const body=$('advancedBody');const expand=body.hidden;body.hidden=!expand;$('advancedToggle').setAttribute('aria-expanded',expand?'true':'false');$('advancedChevron').textContent=expand?'⌃':'⌄';drawFilterButtons()};
+$('clearFilters').onclick=()=>{filterActresses=[];filterGenres=[];filterMatch='AND';$('actressFilterSearch').value='';$('genreFilterSearch').value='';$('search').value='';$('filter').value='all';render();notify('検索条件をクリアしたで')};
+$('actressFilterSearch').oninput=drawFilterButtons;$('genreFilterSearch').oninput=drawFilterButtons;
+$('matchAnd').onclick=()=>{filterMatch='AND';render()};$('matchOr').onclick=()=>{filterMatch='OR';render()};
+$('actresses').closest('.stat').style.cursor='pointer';$('actresses').closest('.stat').title='女優別検索を開く';$('actresses').closest('.stat').onclick=()=>{if($('advancedBody').hidden)$('advancedToggle').click();$('advanced').scrollIntoView({behavior:'smooth',block:'start'})};
+function openImageZoom(id){const w=works.find(x=>x.id===id);if(!w?.image)return;$('zoomImage').src=w.image;$('zoomTitle').textContent=w.title||w.distribution||w.maker||'パッケージ画像';$('imageZoom').showModal()}
+$('zoomClose').onclick=()=>$('imageZoom').close();$('imageZoom').addEventListener('click',e=>{if(e.target===$('imageZoom'))$('imageZoom').close()});$('imageZoom').addEventListener('close',()=>{$('zoomImage').removeAttribute('src')});
+for(const button of document.querySelectorAll('[data-jump]'))button.onclick=()=>{const target=$(button.dataset.jump);target.scrollIntoView({block:'center',behavior:'smooth'})};
+
+const THEME_KEY='otoko-app-theme-v1',LAYOUT_KEY='otoko-app-layout-v1';
+let layoutMode='two';
+function setTheme(value){
+ const theme=value==='pink'?'pink':'dark';
+ document.documentElement.dataset.theme=theme;
+ document.querySelector('meta[name="theme-color"]').content=theme==='pink'?'#fff0f6':'#101827';
+ cloudPreferences.theme=theme;if(currentUser)saveCloudPreferences();
+ document.querySelectorAll('[data-theme]').forEach(b=>{const selected=b.dataset.theme===theme;b.classList.toggle('selected',selected);b.setAttribute('aria-pressed',selected?'true':'false')});
+ $('themeButton').textContent=theme==='pink'?'🌸 薄ピンク':'🌙 ブラック';
+}
+function initializePreferences(){
+ let theme=cloudPreferences.theme||'dark';layoutMode=cloudPreferences.layout==='one'?'one':'two';
+ setTheme(theme);updateLayoutButton();
+}
+function updateLayoutButton(){$('layoutSwitch').textContent=layoutMode==='one'?'▤ 1列表示':'▦ 2列表示'}
+document.querySelectorAll('[data-theme]').forEach(button=>button.onclick=()=>{setTheme(button.dataset.theme);$('themeDialog').close();notify('背景色を変更しました')});
+$('layoutSwitch').onclick=()=>{layoutMode=layoutMode==='one'?'two':'one';cloudPreferences.layout=layoutMode;saveCloudPreferences();updateLayoutButton();render()};
+
+// Ver.1.5: preferences live outside the work store; do not change IndexedDB schema.
+const FAV_ACTRESS_KEY='otoko-app-fav-actresses-v1',SAVED_SEARCH_KEY='otoko-app-saved-searches-v1';
+function readSettings(key,fallback){return cloudPreferences[key]??fallback}
+function writeSettings(key,value){cloudPreferences[key]=value;saveCloudPreferences();return true}
+let favoriteActresses=readSettings(FAV_ACTRESS_KEY,[]),savedSearches=readSettings(SAVED_SEARCH_KEY,[]);
+if(!Array.isArray(favoriteActresses))favoriteActresses=[];
+if(!Array.isArray(savedSearches))savedSearches=[];
+function nameStats(field){const map=new Map();for(const w of works){for(const name of new Set(Array.isArray(w[field])?w[field]:[])){if(!name)continue;const entry=map.get(name)||{name,works:0,plays:0};entry.works++;entry.plays+=watchCount(w);map.set(name,entry)}}return [...map.values()].sort((a,b)=>b.works-a.works||b.plays-a.plays||a.name.localeCompare(b.name,'ja'))}
+function el(tag,klass,textValue){const node=document.createElement(tag);if(klass)node.className=klass;if(textValue!==undefined)node.textContent=textValue;return node}
+function listRanking(container,items,format,onChoose){const target=$(container);target.replaceChildren();if(!items.length){target.append(el('p','hint','まだ集計できるデータがないで'));return}items.slice(0,5).forEach((item,i)=>{const row=el('button','rank-row');row.type='button';row.append(el('span','rank-num',String(i+1)),el('span','rank-name',item.name),el('span','rank-value',format(item)));row.onclick=()=>onChoose(item);target.append(row)})}
+function drawV15(){if(!$('actressBoard'))return;const names=nameStats('performers');const board=$('actressBoard');board.replaceChildren();if(!names.length)board.append(el('span','hint','女優を登録すると一覧が表示されるで'));
+ names.sort((a,b)=>Number(favoriteActresses.includes(b.name))-Number(favoriteActresses.includes(a.name))||b.works-a.works||a.name.localeCompare(b.name,'ja')).forEach(a=>{const row=el('div','actress-card');const fav=el('button','actress-heart'+(favoriteActresses.includes(a.name)?' active':''),favoriteActresses.includes(a.name)?'♥':'♡');fav.type='button';fav.setAttribute('aria-label',a.name+'をお気に入り切り替え');fav.onclick=()=>{favoriteActresses=favoriteActresses.includes(a.name)?favoriteActresses.filter(n=>n!==a.name):[...favoriteActresses,a.name];writeSettings(FAV_ACTRESS_KEY,favoriteActresses);drawV15()};const link=el('button','actress-select');link.type='button';link.append(el('strong','',a.name),el('small','',a.works+'作品 · '+a.plays+'回'));link.onclick=()=>{filterActresses=[a.name];$('advancedBody').hidden=false;$('advancedToggle').setAttribute('aria-expanded','true');$('advancedChevron').textContent='⌃';render();$('results').scrollIntoView({behavior:'smooth',block:'start'})};row.append(fav,link);board.append(row)});
+ const plays=works.reduce((sum,w)=>sum+watchCount(w),0);const visited=works.filter(w=>watchCount(w)>0).length;const metrics=$('analysisMetrics');metrics.replaceChildren();for(const [label,value] of [['視聴リンク回数',plays+'回'],['視聴リンクを開いた作品',visited+'作品'],['お気に入り女優',favoriteActresses.length+'人']]){const box=el('div','v15-metric');box.append(el('strong','',value),el('span','',label));metrics.append(box)}
+ const top=[...works].filter(w=>watchCount(w)>0).sort((a,b)=>watchCount(b)-watchCount(a)||lastPlay(b).localeCompare(lastPlay(a))).map(w=>({name:w.title||w.distribution||w.maker||'タイトル未設定',plays:watchCount(w),id:w.id}));listRanking('topWorks',top,x=>x.plays+'回',x=>showDetail(x.id));
+ const actresses=nameStats('performers').filter(x=>x.plays).sort((a,b)=>b.plays-a.plays||b.works-a.works);listRanking('topActresses',actresses,x=>x.plays+'回 · '+x.works+'作品',x=>applySingleFilter('actress',x.name));
+ const genres=nameStats('genres').filter(x=>x.plays).sort((a,b)=>b.plays-a.plays||b.works-a.works);listRanking('topGenres',genres,x=>x.plays+'回 · '+x.works+'作品',x=>applySingleFilter('genre',x.name));
+ drawSavedSearches();}
+function applySingleFilter(kind,name){if(kind==='actress')filterActresses=[name];else filterGenres=[name];$('advancedBody').hidden=false;$('advancedToggle').setAttribute('aria-expanded','true');$('advancedChevron').textContent='⌃';render();$('results').scrollIntoView({behavior:'smooth',block:'start'})}
+function drawSavedSearches(){const target=$('savedSearchList');target.replaceChildren();for(const entry of savedSearches){const wrap=el('div','saved-search');const run=el('button','saved-search-run',entry.name);run.type='button';run.onclick=()=>{filterActresses=(entry.actresses||[]).filter(x=>typeof x==='string');filterGenres=(entry.genres||[]).filter(x=>typeof x==='string');filterMatch=entry.match==='OR'?'OR':'AND';$('search').value=entry.query||'';$('filter').value=['all','fav','high'].includes(entry.filter)?entry.filter:'all';$('sort').value=entry.sort||'updated';$('advancedBody').hidden=false;$('advancedToggle').setAttribute('aria-expanded','true');$('advancedChevron').textContent='⌃';render();notify('検索条件を呼び出したで')};const del=el('button','saved-search-remove','×');del.type='button';del.setAttribute('aria-label',entry.name+'を削除');del.onclick=()=>{savedSearches=savedSearches.filter(e=>e.id!==entry.id);writeSettings(SAVED_SEARCH_KEY,savedSearches);drawSavedSearches()};wrap.append(run,del);target.append(wrap)}}
+$('saveSearch').onclick=()=>{const name=$('savedSearchName').value.trim();if(!name){notify('保存する条件の名前を入力してね');return}if(savedSearches.length>=30){notify('保存できる検索条件は30件までやで');return}savedSearches.push({id:uuid(),name,actresses:[...filterActresses],genres:[...filterGenres],match:filterMatch,query:$('search').value,filter:$('filter').value,sort:$('sort').value});writeSettings(SAVED_SEARCH_KEY,savedSearches);$('savedSearchName').value='';drawSavedSearches();notify('検索条件を保存したで')};
+// Include new app preferences in backups without changing the works schema (v1 format compatible).
+const oldExport=$('export').onclick;
+$('export').onclick=async()=>{try{const payload={app:'my-collection',schemaVersion:1,exportedAt:date(),works,settings:{favoriteActresses,savedSearches,theme:document.documentElement.dataset.theme,layout:layoutMode,galleryMode}};const blob=new Blob([JSON.stringify(payload,null,2)],{type:'application/json'}),url=URL.createObjectURL(blob),a=document.createElement('a');a.href=url;a.download='otoko-app-backup-'+new Date().toISOString().slice(0,10)+'.json';document.body.append(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(url),1000);notify('作品と設定をバックアップしたで')}catch(e){notify('バックアップに失敗しました: '+e.message)}finally{unbusy()}};
+// Restore preferences from a valid backup after confirming the works import.
+function restoreV15Settings(settings){if(!settings||typeof settings!=='object')return;if(Array.isArray(settings.favoriteActresses)){favoriteActresses=settings.favoriteActresses.filter(v=>typeof v==='string').slice(0,10000);writeSettings(FAV_ACTRESS_KEY,favoriteActresses)}if(Array.isArray(settings.savedSearches)){savedSearches=settings.savedSearches.filter(x=>x&&typeof x.name==='string'&&typeof x.id==='string').slice(0,30);writeSettings(SAVED_SEARCH_KEY,savedSearches)}if(['dark','pink'].includes(settings.theme))setTheme(settings.theme);if(['one','two'].includes(settings.layout)){layoutMode=settings.layout;cloudPreferences.layout=layoutMode;saveCloudPreferences();updateLayoutButton()}if(typeof settings.galleryMode==='boolean')setGalleryMode(settings.galleryMode);render()}
+
+
+// Ver.1.6 four tab navigation: work data remains in the original IndexedDB store.
+const TAB_KEY='otoko-app-current-tab-v1';
+let currentTab='list';
+function navigateTab(tab,scroll=true){
+ if(!['list','rank','history','settings'].includes(tab))tab='list';
+ currentTab=tab;
+ document.querySelectorAll('.app-page').forEach(p=>p.classList.toggle('active',p.dataset.page===tab));
+ document.querySelectorAll('.bottom-tab').forEach(b=>{const active=b.dataset.tab===tab;b.classList.toggle('active',active);b.setAttribute('aria-current',active?'page':'false')});
+ if(tab==='history')drawGlobalHistory();
+ if(tab==='rank'&&typeof drawV15==='function')drawV15();
+ try{sessionStorage.setItem(TAB_KEY,tab)}catch{}
+ if(scroll)window.scrollTo({top:0,behavior:'instant'});
+}
+function drawGlobalHistory(){
+ const rows=[];
+ for(const w of works)for(const when of historyOf(w))rows.push({w,when});
+ rows.sort((a,b)=>new Date(b.when).getTime()-new Date(a.when).getTime());
+ const sum=$('historySummary');sum.replaceChildren();
+ for(const [label,val] of [['累計リンク回数',rows.length+'回'],['履歴のある作品',new Set(rows.map(x=>x.w.id)).size+'作品']]){
+  const stat=el('div','stat');stat.append(el('strong','',val),el('span','',label));sum.append(stat);
+ }
+ const feed=$('historyFeed');feed.replaceChildren();
+ if(!rows.length){feed.append(el('div','empty','まだ視聴履歴がないで。「視聴する」から記録できるよ。'));return}
+ for(const item of rows.slice(0,250)){
+  const row=el('button','history-entry');row.type='button';
+  const thumb=el('span','history-thumb');
+  if(item.w.image){const im=document.createElement('img');im.src=item.w.image;im.alt='';thumb.append(im)}else thumb.textContent='▧';
+  const det=el('span','history-detail');det.append(el('strong','',item.w.title||item.w.distribution||item.w.maker||'タイトル未設定'),el('span','',fmtWatch(item.when)));
+  row.append(thumb,det,el('span','','›'));row.onclick=()=>showDetail(item.w.id);feed.append(row);
+ }
+}
+document.querySelectorAll('.bottom-tab').forEach(b=>b.addEventListener('click',()=>navigateTab(b.dataset.tab)));
+// Navigate back to the work list when a ranking or performer opens a filtered list.
+const originalApplySingleFilter=applySingleFilter;
+applySingleFilter=function(kind,name){navigateTab('list',false);originalApplySingleFilter(kind,name)};
+// Keep the library and history synced whenever the work list re-renders.
+const renderBeforeTabs=render;
+render=function(){renderBeforeTabs();if(currentTab==='history')drawGlobalHistory()};
+// Saved searches stay visible in the works list.
+$('savedSearchList').addEventListener('click',e=>{if(e.target.closest('.saved-search-run'))navigateTab('list',false)});
+// The performer library is located under ranking, but its filter opens the work list.
+$('actressBoard').addEventListener('click',e=>{if(e.target.closest('.actress-select'))navigateTab('list',false)});
+try{navigateTab(sessionStorage.getItem(TAB_KEY)||'list',false)}catch{navigateTab('list',false)}
+
+
+// Ver.1.7 features (no IndexedDB schema changes; ready for later data export/migration).
+const GALLERY_KEY='otoko-app-gallery-v1';
+let galleryMode=false;
+galleryMode=cloudPreferences.galleryMode===true
+function updateGalleryButton(){const b=$('galleryToggle');if(!b)return;b.textContent=galleryMode?'▤ 通常表示':'▧ ギャラリー表示';b.setAttribute('aria-pressed',galleryMode?'true':'false')}
+function setGalleryMode(next){galleryMode=!!next;cloudPreferences.galleryMode=galleryMode;if(currentUser)saveCloudPreferences();updateGalleryButton();render()}
+$('galleryToggle').onclick=()=>setGalleryMode(!galleryMode);
+updateGalleryButton();
+let rankView='overview';
+function changeRankView(value){rankView=['overview','favorites','monthly'].includes(value)?value:'overview';for(const [key,id] of [['overview','rankOverview'],['favorites','rankFavorites'],['monthly','rankMonthly']]){const node=$(id);node.hidden=key!==rankView;node.classList.toggle('active',key===rankView)}document.querySelectorAll('[data-rank-view]').forEach(btn=>{const on=btn.dataset.rankView===rankView;btn.classList.toggle('active',on);btn.setAttribute('aria-pressed',String(on))});if(rankView==='favorites')drawFavoritePage();if(rankView==='monthly')drawMonthlyPage()}
+document.querySelectorAll('[data-rank-view]').forEach(btn=>btn.onclick=()=>changeRankView(btn.dataset.rankView));
+function drawFavoritePage(){
+ const target=$('favoriteActressCards');if(!target)return;target.replaceChildren();
+ const stats=nameStats('performers');const favorites=stats.filter(x=>favoriteActresses.includes(x.name)).sort((a,b)=>b.plays-a.plays||b.works-a.works||a.name.localeCompare(b.name,'ja'));
+ if(!favorites.length){const empty=el('div','empty','お気に入り女優はまだいないで。ランキング内の「女優ライブラリ」で♡を押して登録してね。');target.append(empty);return}
+ for(const actor of favorites){const card=el('div','favorite-person');card.append(el('div','favorite-person-name','♥ '+actor.name),el('div','favorite-person-meta',actor.works+'作品 · 視聴リンク '+actor.plays+'回'));const actions=el('div','favorite-person-actions');const find=el('button','btn primary','作品を見る');find.type='button';find.onclick=()=>applySingleFilter('actress',actor.name);const remove=el('button','btn','♥ 解除');remove.type='button';remove.setAttribute('aria-label',actor.name+'のお気に入りを解除');remove.onclick=()=>{favoriteActresses=favoriteActresses.filter(x=>x!==actor.name);writeSettings(FAV_ACTRESS_KEY,favoriteActresses);drawV15()};actions.append(find,remove);card.append(actions);target.append(card)}
+}
+function monthKey(iso){const d=new Date(iso);if(Number.isNaN(d.getTime()))return null;return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')}
+function drawMonthlyPage(){
+ const chart=$('monthChart'),list=$('monthList'),metrics=$('monthlyMetrics');if(!chart||!list||!metrics)return;
+ chart.replaceChildren();list.replaceChildren();metrics.replaceChildren();
+ const count=new Map(), unique=new Map();let total=0;
+ for(const w of works)for(const stamp of historyOf(w)){const key=monthKey(stamp);if(!key)continue;count.set(key,(count.get(key)||0)+1);if(!unique.has(key))unique.set(key,new Set());unique.get(key).add(w.id);total++}
+ const allMonths=[...count.keys()].sort().reverse();const latest=allMonths[0];
+ const recent=[];const now=new Date();for(let offset=11;offset>=0;offset--){const d=new Date(now.getFullYear(),now.getMonth()-offset,1);recent.push(d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0'))}
+ const lastSix=recent.slice(-6),peak=Math.max(1,...lastSix.map(k=>count.get(k)||0));
+ for(const [label,value] of [['累計リンク回数',total+'回'],['記録のある月',allMonths.length+'か月'],['今月',String(count.get(recent[11])||0)+'回']]){const node=el('div','monthly-metric');node.append(el('strong','',value),el('span','',label));metrics.append(node)}
+ for(const key of lastSix){const val=count.get(key)||0;const node=el('div','month-col');node.setAttribute('aria-label',key+' '+val+'回');const track=el('div','month-bar-track');const bar=el('div','month-bar');bar.style.height=(val?Math.max(4,val/peak*100):0)+'%';track.append(bar);node.append(el('strong','',val+'回'),track,el('small','',String(Number(key.slice(5)))+'月'));chart.append(node)}
+ if(!allMonths.length){list.append(el('p','hint','まだ視聴リンクの履歴がないで。「視聴する」を押すと月別に集計されるよ。'));return}
+ for(const key of allMonths){const row=el('div','month-row');row.append(el('span','',key.replace('-','年')+'月'),el('strong','',count.get(key)+'回 · '+unique.get(key).size+'作品'));list.append(row)}
+}
+const originalDrawV15_v17=drawV15;
+drawV15=function(){originalDrawV15_v17();if(rankView==='favorites')drawFavoritePage();if(rankView==='monthly')drawMonthlyPage()};
+
+
+async function exportCloudWorks(){
+ const exported=[];
+ for(const work of works){
+  let image=null;
+  if(work.imagePath){
+   const b=checkResult(await client.storage.from(CLOUD_BUCKET).download(work.imagePath));
+   image=await new Promise((resolve,reject)=>{const reader=new FileReader();reader.onload=()=>resolve(reader.result);reader.onerror=()=>reject(reader.error);reader.readAsDataURL(b)});
+  }
+  const copy={...work,image};delete copy.imagePath;exported.push(copy);
+ }
+ return exported;
+}
+function saveCloudPreferences(){
+ if(!currentUser||!client)return;
+ const snapshot={...cloudPreferences};
+ savePreferencesQueue=savePreferencesQueue.catch(()=>{}).then(async()=>{
+  checkResult(await client.from('user_settings').upsert({user_id:currentUser.id,data:snapshot,updated_at:new Date().toISOString()},{onConflict:'user_id'}))
+ }).catch(e=>notify('設定の同期に失敗しました: '+e.message));
+}
+async function startSession(user){
+ currentUser=user;
+ $('cloudUser').textContent=user.email||'ログイン中';
+ busy('クラウドのデータを読み込んでいます…');
+ try{
+  const row=checkResult(await client.from('user_settings').select('data').eq('user_id',user.id).maybeSingle());
+  cloudPreferences=row?.data||{};
+  favoriteActresses=Array.isArray(cloudPreferences[FAV_ACTRESS_KEY])?cloudPreferences[FAV_ACTRESS_KEY]:[];
+  savedSearches=Array.isArray(cloudPreferences[SAVED_SEARCH_KEY])?cloudPreferences[SAVED_SEARCH_KEY]:[];
+  galleryMode=cloudPreferences.galleryMode===true;
+  initializePreferences();updateGalleryButton();
+  await refresh();
+  $('cloudGate').hidden=true;
+ }catch(e){$('authNotice').textContent='読み込みに失敗しました';$('cloudAuthError').textContent=e.message;$('cloudGate').hidden=false}
+ finally{unbusy()}
+}
+function authMessage(message,error=false){$('authNotice').textContent=message;$('cloudAuthError').textContent=error?message:''}
+async function bootCloud(){
+ const form=$('cloudAuthForm');
+ if(!window.supabase?.createClient){authMessage('接続ライブラリを読み込めませんでした。通信状況を確認して再読み込みしてください。',true);return}
+ client=window.supabase.createClient(CLOUD_URL,CLOUD_KEY,{auth:{persistSession:true,autoRefreshToken:true,detectSessionInUrl:true}});
+ const showAuth=()=>{form.hidden=false;$('cloudGate').hidden=false;authMessage('メールアドレスでログイン、または新規登録してください。')};
+ form.onsubmit=async e=>{e.preventDefault();busy('ログインしています…');try{const {error}=await client.auth.signInWithPassword({email:$('cloudEmail').value.trim(),password:$('cloudPassword').value});if(error)throw error;authMessage('ログインを確認しています…')}catch(err){authMessage(err.message,true)}finally{unbusy()}};
+ $('cloudSignUp').onclick=async()=>{if(!form.reportValidity())return;busy('アカウントを作成しています…');try{const {data,error}=await client.auth.signUp({email:$('cloudEmail').value.trim(),password:$('cloudPassword').value,options:{emailRedirectTo:location.origin+location.pathname}});if(error)throw error;authMessage(data.session?'登録しました。読み込み中…':'登録確認メールを送信しました。メール内のリンクを開いてからログインしてください。')}catch(e){authMessage(e.message,true)}finally{unbusy()}};
+ $('cloudUpdatePassword').onclick=async()=>{const password=$('cloudPassword').value;if(password.length<12){authMessage('12文字以上のパスワードを入力してください',true);return}try{busy('パスワードを更新しています…');const {error}=await client.auth.updateUser({password});if(error)throw error;$('cloudUpdatePassword').hidden=true;authMessage('パスワードを更新しました。ログインできます。')}catch(e){authMessage(e.message,true)}finally{unbusy()}};
+ $('cloudReset').onclick=async()=>{const email=$('cloudEmail').value.trim();if(!email){authMessage('先にメールアドレスを入力してください',true);return}busy('メールを送信しています…');try{const {error}=await client.auth.resetPasswordForEmail(email,{redirectTo:location.origin+location.pathname});if(error)throw error;authMessage('パスワード再設定メールを送信しました。')}catch(e){authMessage(e.message,true)}finally{unbusy()}};
+ $('cloudLogout').onclick=async()=>{try{checkResult(await client.auth.signOut());currentUser=null;works=[];cloudPreferences={};favoriteActresses=[];savedSearches=[];render();showAuth()}catch(e){notify(e.message)}};
+ $('cloudReload').onclick=async()=>{try{busy('同期しています…');await startSession(currentUser);notify('同期しました')}catch(e){notify(e.message)}finally{unbusy()}};
+ client.auth.onAuthStateChange((ev,session)=>{if(ev==='SIGNED_OUT'){currentUser=null;works=[];cloudPreferences={};render();showAuth()}else if((ev==='SIGNED_IN'||ev==='INITIAL_SESSION')&&session?.user&&session.user.id!==currentUser?.id){setTimeout(()=>startSession(session.user),0)}else if(ev==='PASSWORD_RECOVERY'){showAuth();$('cloudUpdatePassword').hidden=false;authMessage('新しいパスワード（12文字以上）を入力して、「新しいパスワードを設定」を押してください。') }});
+ const {data,error}=await client.auth.getSession();if(error){showAuth();authMessage(error.message,true)}else if(data.session?.user)await startSession(data.session.user);else showAuth();
+}
+bootCloud().catch(e=>authMessage(e.message,true));
+
+</script></body></html>
